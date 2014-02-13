@@ -94,86 +94,86 @@ int32_t main(){
 	if (curp == NULL || nombre == NULL
 		|| fecha == NULL || sexo == NULL){
 		puts("Memoria insuficiente");
-	return 1;
-}
+		return 1;
+	}
 
-		// Inicializamos la memoria a ceros.
-memset(curp, 0, curp_size);
-memset(nombre, 0, buffer_size);
-memset(fecha, 0, buffer_size);
-memset(sexo, 0, short_buffer_size);
+	// Inicializamos la memoria a ceros.
+	memset(curp, 0, curp_size);
+	memset(nombre, 0, buffer_size);
+	memset(fecha, 0, buffer_size);
+	memset(sexo, 0, short_buffer_size);
 
-puts ("Programa para calcular la CURP.");
-puts ("Advertencia: Para el correcto funcionamiento, no debe ingresar acentos en ningún campo.");
+	puts ("Programa para calcular la CURP.");
+	puts ("Advertencia: Para el correcto funcionamiento, no debe ingresar acentos en ningún campo.");
 
 		// Pedimos el nombre.
-do{
-	puts ("Introduzca su nombre iniciando por apellido paterno (ejemplo \"Gomez Pérez Maria Antonieta\"): ");
-	lgets (string_buffer_len, nombre);
-}while(generar_primer_y_quinto_bloque(nombre, curp));
+	do{
+		puts ("Introduzca su nombre iniciando por apellido paterno (ejemplo \"Gomez Pérez Maria Antonieta\"): ");
+		lgets (string_buffer_len, nombre);
+	}while(generar_primer_y_quinto_bloque(nombre, curp));
 
 		// Pedimos la fecha.
-do{
-	puts ("Introduzca su fecha de nacimiento YYYY-MM-dd (ejemplo \"1980-09-02\" para el 2 de septiembre de 1980): ");
-	lgets (string_buffer_len, fecha);
-}while(generar_segundo_bloque(fecha, curp));
+	do{
+		puts ("Introduzca su fecha de nacimiento YYYY-MM-dd (ejemplo \"1980-09-02\" para el 2 de septiembre de 1980): ");
+		lgets (string_buffer_len, fecha);
+	}while(generar_segundo_bloque(fecha, curp));
 
 		// Pedimos el sexo.
-do{
-	puts ("Introduzca su sexo (M para mujer, H para hombre): ");
-	lgets (string_short_buffer_len, sexo);
-}while(generar_tercer_bloque(sexo, curp));
+	do{
+		puts ("Introduzca su sexo (M para mujer, H para hombre): ");
+		lgets (string_short_buffer_len, sexo);
+	}while(generar_tercer_bloque(sexo, curp));
 
-do{
-	puts ("Seleccione su estado de nacimiento. ");
-	puts (
-		"1) Aguascalientes\n"
-	"2) Baja california\n"
-	"3) Baja california sur\n"
-	"4) Campeche\n"
-	"5) Chiapas\n"
-	"6) Chihuahua\n"
-	"7) Coahuila\n"
-	"8) Colima\n"
-	"9) Distrito Federal\n"
-	"10) Durango\n"
-	"11) Guanajuato\n"
-	"12) Guerrero\n"
-	"13) Hidalgo\n"
-	"14) Jalisco\n"
-	"15) Estado de Mexico\n"
-	"16) Michoacán\n"
-	"17) Morelos\n"
-	"18) Nayarit\n"
-	"19) Nuevo León\n"
-	"20) Oaxaca\n"
-	"21) Puebla\n"
-	"22) Querétaro\n"
-	"23) Quintana Roo\n"
-	"24) San Luis Potosí\n"
-	"25) Sinaloa\n"
-	"26) Sonora\n"
-	"27) Tabasco\n"
-	"28) Tamaulipas\n"
-	"29) Tlaxcala\n"
-	"30) Veracruz\n"
-	"31) Yucatán\n"
-	"32) Zacatecas\n"
-	"33) Extranjero");
+	do{
+		puts ("Seleccione su estado de nacimiento. ");
+		puts (
+			"1) Aguascalientes\n"
+			"2) Baja california\n"
+			"3) Baja california sur\n"
+			"4) Campeche\n"
+			"5) Chiapas\n"
+			"6) Chihuahua\n"
+			"7) Coahuila\n"
+			"8) Colima\n"
+			"9) Distrito Federal\n"
+			"10) Durango\n"
+			"11) Guanajuato\n"
+			"12) Guerrero\n"
+			"13) Hidalgo\n"
+			"14) Jalisco\n"
+			"15) Estado de Mexico\n"
+			"16) Michoacán\n"
+			"17) Morelos\n"
+			"18) Nayarit\n"
+			"19) Nuevo León\n"
+			"20) Oaxaca\n"
+			"21) Puebla\n"
+			"22) Querétaro\n"
+			"23) Quintana Roo\n"
+			"24) San Luis Potosí\n"
+			"25) Sinaloa\n"
+			"26) Sonora\n"
+			"27) Tabasco\n"
+			"28) Tamaulipas\n"
+			"29) Tlaxcala\n"
+			"30) Veracruz\n"
+			"31) Yucatán\n"
+			"32) Zacatecas\n"
+			"33) Extranjero");
 
-	printf ("Introduzca el número de estado donde ha nacido: ");
-	scanf ("%d", &estado);
-}while(generar_cuarto_bloque (estado, curp));
+		printf ("Introduzca el número de estado donde ha nacido: ");
+		scanf ("%d", &estado);
+	}while(generar_cuarto_bloque (estado, curp));
 
-generar_quinto_bloque(curp);
-printf ("Su CURP (con homoclave y verificación simulada): %s \n", curp);
+	generar_quinto_bloque(curp);
+	printf ("Su CURP (con homoclave y verificación simulada): %s \n", curp);
 
-free(curp);
-free(nombre);
-free(fecha);
-free(sexo);
+	free(curp);
+	free(nombre);
+	free(fecha);
+	free(sexo);
 
-return 0;
+	return 0;
 }
 
 int32_t lgets (int32_t max, char * buf){
