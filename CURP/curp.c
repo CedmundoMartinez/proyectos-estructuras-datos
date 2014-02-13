@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	// Limit get string
 	//  Obtiene una cadena de texto de forma segura.
-int32_t lgets (int32_t max, char * buf);
+int lgets (int max, char * buf);
 
 	// Generar primer bloque.
 	//	Volca el primer y quinto bloque del CURP (Nombres e iniciales) a partir de una cadena.
@@ -60,7 +60,7 @@ int generar_tercer_bloque (char * buf, char * curp);
 
 	// Genera el cuarto bloque.
 	// 	Volca el cuarto bloque de la CURP (Lugar de nacimiento) a partir de una candea.
-int generar_cuarto_bloque (int32_t indice, char * curp);
+int generar_cuarto_bloque (int indice, char * curp);
 
 	// Genera la homoclave y verificacion aleatoria.
 int generar_quinto_bloque (char * curp);
@@ -73,11 +73,11 @@ char primera_vocal(char *buf);
 	// Obtiene la primera consonante a partir de la memoria de buf.
 char primera_consonante(char *buf);
 
-int32_t main(){
+int main(){
 		// Longitudes de cadena.
-	const int32_t string_short_buffer_len = 6;
-	const int32_t string_curp_len = 19;
-	const int32_t string_buffer_len = 256;
+	const int string_short_buffer_len = 6;
+	const int string_curp_len = 19;
+	const int string_buffer_len = 256;
 
 		// Tamaños de memoria.
 	const size_t curp_size = sizeof(char) * string_curp_len;
@@ -89,7 +89,7 @@ int32_t main(){
 	char * nombre = (char *) malloc (buffer_size);
 	char * fecha = (char *) malloc (buffer_size);
 	char * sexo = (char *) malloc (short_buffer_size);
-	int32_t estado;
+	int estado;
 
 	if (curp == NULL || nombre == NULL
 		|| fecha == NULL || sexo == NULL){
@@ -176,7 +176,7 @@ int32_t main(){
 	return 0;
 }
 
-int32_t lgets (int32_t max, char * buf){
+int lgets (int max, char * buf){
 	char * p;
 	char ch;
 
@@ -399,7 +399,7 @@ int generar_tercer_bloque (char *buf, char * curp){
 	return 1;
 }
 
-int generar_cuarto_bloque (int32_t indice, char * curp) {
+int generar_cuarto_bloque (int indice, char * curp) {
 	const char estados[32][3] = { "AS", "BC", "BS", "CC", "CS", "CH", 
 	"CL", "CM", "DF", "DG", "GT", "GR", "HG",
 	"JC", "MC", "MN", "MS", "NT", "NL", "OC",
