@@ -28,7 +28,7 @@
  
 
 /*
-* Programa para convertir de notación infoja a postfija.
+* Programa para convertir de notación infija a postfija.
 *
 * Alumno: Carlos Edmundo Martínez Mendoza.
 * Boleta: 2013630284.
@@ -36,13 +36,67 @@
 */
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
+#include <ctype.h>
 #include "stacky.h"
 #include "postfixy.h"
+#include "sci.h"
+
+_inline int8_t is_variable(char v) { return v > 'A' && v < 'Z'; }
+_inline int8_t is_operation(char v) { v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
+
+static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
+    const char *raw = buffer->raw_data;
+    const int32_t len = buffer->size;
+    char curbyte, pastbyte;
+    int8_t is_cur_variable, is_cur_operation;
+    int64_t i;
+    
+    if (len > 15){
+        printf("La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una oepración más pequeña.\n");
+        return K_SCI_AGAIN;
+    }
+
+    if (len == 0){
+        printf("Favor de ingresar una operación.\n");
+        return K_SCI_AGAIN;
+    }
+
+    for (i=0;i<len;i++){
+        curbyte = toupper(raw[i]);
+
+        if (i > 0)
+            pastbyte = toupper(raw[i-1]);
+        else
+            pastbyte = 0;
+
+        is_cur_variable = is_variable(curbyte);
+        is_cur_operation = is_operation(curbyte);
+
+        if (!is_cur_variable && !is_cur_operation){
+            printf("Solamente se admiten variables (A,B,C,...,Z) y operadores +,-,/,*,^\n");
+            return K_SCI_AGAIN;
+        }
+
+        if (is_cur_variable && pastbyte != 0 && is_variable(pastbyte)){
+            printf("Error en la pocisión %d y %d: No puede haber dos variables juntas.\n", i, i+1);
+            return K_SCI_AGAIN;
+        }
+
+        if (is_cur_operation && pastbyte != 0 && is_operation(pastbyte)){
+            printf("Error en la pocisión %d y %d: No puede haber dos operadores juntos.\n", i, i+1);
+            printf("** No se soporta el operador negativo aún.\n");
+            return K_SCI_AGAIN;
+        }
+    }
+
+    return K_SCI_CONTINUE;
+}
 
 int main(int argc, char **argv){
     
-    char buffer[STACK_STATIC_SIZE];
-    buffer[STACK_STATIC_SIZE-1] = 0;
+    int32_t capacity = get_static_stack_capacity();
+    SecuredBuffer *buffer = create_buffer(capacity+1);
 
     printf("Programa para convertir a notación postfija.\n");
     
@@ -53,27 +107,18 @@ int main(int argc, char **argv){
         init_stack (&primary);
         init_stack (&auxiliar);
     
-        printf("Ingrese una operación en notación infija (no más de %d caracteres): ", STACK_STATIC_SIZE);
-    
-
-        do {
-            scanf("%s", buffer);
+        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %d caracteres", capacity);
+        secure_prompt(": ", buffer, &validate_infixed_syntax);
         
-            if (strlen(buffer) > STACK_STATIC_SIZE - 1){
-                 printf("La cadena debe tener una longitud menor o igual a quince caracteres.\n");
-            }else{
-                 break;
-            }
-        } while (1);
-    
-        if (!perform_postfixed (buffer, &primary, &auxiliar))
-	   break;
+        if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))
+	       break;
 
     } while(1);
     
     printf("Resultado en notación postfija: ");
     print_stack (&primary);
     
+    destroy_buffer(buffer);
     printf("\n");
     return 0;
 }

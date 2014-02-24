@@ -62,6 +62,8 @@ typedef struct _Stack {
 
 #ifdef USE_STATIC_STACK
     StackType contents[STACK_STATIC_SIZE];
+    int32_t capacity;
+
 #elif USE_DYNAMIC_STACK
     #error No existe definición de Stack para un tipo dinámico.
 #elif USE_HYBRID_RUNTIME
@@ -96,5 +98,8 @@ int8_t is_empty (Stack * s);
 
 // Imprime la pila en formato plano.
 void print_stack(Stack * s);
+
+// Devuelve el valor del tamaño definido de las pilas estáticas.
+_inline int32_t get_static_stack_capacity(){ return STACK_STATIC_SIZE; }
 
 #endif

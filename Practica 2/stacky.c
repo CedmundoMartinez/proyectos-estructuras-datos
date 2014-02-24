@@ -36,6 +36,7 @@
 
 void init_stack (Stack * s){
     s->top = -1;
+    s->capacity = STACK_STATIC_SIZE;
 }
 
 Stack *alloc_stack(){
