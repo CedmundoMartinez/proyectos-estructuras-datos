@@ -38,69 +38,11 @@
 #include <string.h>
 #include <stdint.h>
 #include <ctype.h>
+
 #include "stacky.h"
 #include "postfixy.h"
 #include "sci.h"
-
-static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
-    const char *raw = buffer->raw_data;
-    const int32_t len = buffer->size;
-
-    char curbyte, pastbyte;
-    int8_t is_cur_variable, is_cur_operation;
-    int64_t i;
-    
-    if (len > 15){
-        printf("ERROR: La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una operación más pequeña.\n");
-        return K_SCI_AGAIN;
-    }
-
-    if (len == 0){
-        printf("ERROR: Favor de ingresar una operación.\n");
-        return K_SCI_AGAIN;
-    }
-
-    if (len < 3){
-        printf("ERROR: Cantidad de operandos y/o operadores inferior a la mínima requerida (>2)\n");
-        return K_SCI_AGAIN;
-    }
-
-    for (i=0;i<len;i++){
-        curbyte = toupper(raw[i]);
-
-        if (i > 0)
-            pastbyte = toupper(raw[i-1]);
-        else
-            pastbyte = 0;
-
-        is_cur_variable = is_variable(curbyte);
-        is_cur_operation = is_supported_operator(curbyte);
-
-        if (!is_cur_variable && !is_cur_operation){
-            printf("ERROR: En pocisión %d ('%c'), solamente se admiten variables "
-                    "(A,B,C,...,Z) y operadores +,-,/,*,^\n", i+1, curbyte);
-            return K_SCI_AGAIN;
-        }
-
-        if (is_cur_variable && pastbyte != 0 && is_variable(pastbyte)){
-            printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos variables juntas.\n", i, i+1);
-            return K_SCI_AGAIN;
-        }
-
-        if (is_cur_operation && pastbyte != 0 && is_supported_operator(pastbyte)){
-            printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
-            printf("AVISO: No se soporta el operador negativo aún.\n");
-            return K_SCI_AGAIN;
-        }
-
-        if (is_cur_operation && i == 0){
-            printf("ERROR: El valor ingresado puede causar una salida erronea.\n");
-            return K_SCI_AGAIN;   
-        }
-    }
-
-    return K_SCI_CONTINUE;
-}
+#include "validaciones.h"
 
 int main(int argc, char **argv){
     
