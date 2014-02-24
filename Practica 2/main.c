@@ -43,11 +43,12 @@
 #include "sci.h"
 
 inline int8_t is_variable(char v) { return v > 'A' && v < 'Z'; }
-inline int8_t is_operation(char v) { v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
+inline int8_t is_operation(char v) { return v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
 
 static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     const char *raw = buffer->raw_data;
     const int32_t len = buffer->size;
+
     char curbyte, pastbyte;
     int8_t is_cur_variable, is_cur_operation;
     int64_t i;
@@ -79,12 +80,12 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
         }
 
         if (is_cur_variable && pastbyte != 0 && is_variable(pastbyte)){
-            printf("Error en la pocisión %d y %d: No puede haber dos variables juntas.\n", i, i+1);
+            printf("Error en la pocisión %ld y %ld: No puede haber dos variables juntas.\n", i, i+1);
             return K_SCI_AGAIN;
         }
 
         if (is_cur_operation && pastbyte != 0 && is_operation(pastbyte)){
-            printf("Error en la pocisión %d y %d: No puede haber dos operadores juntos.\n", i, i+1);
+            printf("Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
             printf("** No se soporta el operador negativo aún.\n");
             return K_SCI_AGAIN;
         }
@@ -107,7 +108,7 @@ int main(int argc, char **argv){
         init_stack (&primary);
         init_stack (&auxiliar);
     
-        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %d caracteres", capacity);
+        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %ld caracteres", capacity);
         secure_prompt(": ", buffer, &validate_infixed_syntax);
         
         if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))

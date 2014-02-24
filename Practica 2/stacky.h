@@ -100,6 +100,6 @@ int8_t is_empty (Stack * s);
 void print_stack(Stack * s);
 
 // Devuelve el valor del tamaño definido de las pilas estáticas.
-_inline int32_t get_static_stack_capacity(){ return STACK_STATIC_SIZE; }
+inline int32_t get_static_stack_capacity(){ return STACK_STATIC_SIZE; }
 
 #endif
