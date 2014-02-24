@@ -35,6 +35,7 @@
 * Grupo: 1CV1.
 */
 #include <stdio.h>
+#include <string.h>
 #include "stacky.h"
 #include "postfixy.h"
 
