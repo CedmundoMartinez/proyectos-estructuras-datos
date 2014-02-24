@@ -32,9 +32,9 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define K_SCI_AGAIN 0x10;
-#define K_SCI_BREAK 0x11;
-#define K_SCI_CONTINUE 0x12;
+#define K_SCI_AGAIN 0x10
+#define K_SCI_BREAK 0x11
+#define K_SCI_CONTINUE 0x12
 
 typedef struct _SecuredBuffer {
 	char * raw_data;
