@@ -89,7 +89,7 @@ SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b){
 	return NULL;
 }
 
-void is_empty(const SecuredBuffer *buffer){
+int8_t is_buffer_empty(const SecuredBuffer *buffer){
 	return buffer->size == 0;
 }
 

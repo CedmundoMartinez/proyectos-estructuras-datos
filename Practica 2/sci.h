@@ -65,7 +65,7 @@ SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b);
 
 
 // Returns 1 if SecuredBuffer is empty.
-void is_empty(const SecuredBuffer *buffer);
+int8_t is_buffer_empty(const SecuredBuffer *buffer);
 
 
 // Reads a string from FILE only if fits on secured buffer reference

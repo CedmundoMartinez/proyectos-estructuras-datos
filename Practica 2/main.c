@@ -108,7 +108,7 @@ int main(int argc, char **argv){
         init_stack (&primary);
         init_stack (&auxiliar);
     
-        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %ld caracteres", capacity);
+        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %d caracteres", capacity);
         secure_prompt(": ", buffer, &validate_infixed_syntax);
         
         if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))
