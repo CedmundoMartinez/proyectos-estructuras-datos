@@ -51,7 +51,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     int64_t i;
     
     if (len > 15){
-        printf("La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una oepración más pequeña.\n");
+        printf("La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una operación más pequeña.\n");
         return K_SCI_AGAIN;
     }
 
@@ -105,8 +105,8 @@ int main(int argc, char **argv){
         init_stack (&primary);
         init_stack (&auxiliar);
     
-        printf("Ingrese una operación sólo con variables (A-Z), operadores +,-,*,/,^ y de máximo %d caracteres", capacity);
-        secure_prompt(": ", buffer, &validate_infixed_syntax);
+        printf("ENTRADA: Sólo se admiten variables (A-Z), operadores +,-,*,/,^ y un máximo %d caracteres.", capacity-1);
+        secure_prompt("Ingrese una operación en notación infija: ", buffer, &validate_infixed_syntax);
         
         if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))
 	       break;
