@@ -89,7 +89,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             return K_SCI_AGAIN;
         }
 
-        if ( (is_cur_operation && i == 0) || (is_cur_operation && i == len-1){
+        if ( (is_cur_operation && i == 0) || (is_cur_operation && i == len-1) ){
             printf("ERROR: El valor ingresado puede causar una salida erronea.\n");
             return K_SCI_AGAIN;   
         }
