@@ -32,6 +32,10 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#define K_SCI_AGAIN 0x10;
+#define K_SCI_BREAK 0x11;
+#define K_SCI_CONTINUE 0x12;
+
 typedef struct _SecuredBuffer {
 	char * raw_data;
 	int64_t capacity;
@@ -77,9 +81,5 @@ int64_t secure_read (FILE *, SecuredBuffer *, char);
 // 	printf(prompt);
 // 	secure_read (stdin, buf, '\n');
 int64_t secure_prompt (const char *, SecuredBuffer *, ValidatorType);
-
-const ValidationResult K_SCI_AGAIN = 0x10;
-const ValidationResult K_SCI_BREAK = 0x11;
-const ValidationResult K_SCI_CONTINUE = 0x12;
 
 #endif

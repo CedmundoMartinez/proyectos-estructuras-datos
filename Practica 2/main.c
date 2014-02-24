@@ -42,8 +42,8 @@
 #include "postfixy.h"
 #include "sci.h"
 
-inline int8_t is_variable(char v) { return v > 'A' && v < 'Z'; }
-inline int8_t is_operation(char v) { return v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
+int8_t is_variable(char v) { return v > 'A' && v < 'Z'; }
+int8_t is_operation(char v) { return v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
 
 static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     const char *raw = buffer->raw_data;
