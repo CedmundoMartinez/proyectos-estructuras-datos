@@ -30,26 +30,25 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef __POSTFIXY__H__
 #define __POSTFIXY__H__
 
-#ifdef USE_STACKY
+#include <stdint.h>
 #include "stacky.h"
-#endif
 
 // Transorma el búfer de entrada (dado en notación infija)
 // 	a una notación postfija almacenada dentro de la pila
 //	primaria.
-int8_t perform_postfixed (char * buffer, Stack * primary, Stack * axuliar);
+int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * axuliar);
 
 // Obtiene el orden de precedencia del operador op.
-int8_t get_precedence(char op);
+int8_t get_precedence(StackType op);
 
 // Devuelve 1 (verdadero) si OP tiene mayor precedencia que
 //	la cima de la pila S. 0 (Falso) en caso contrario.
-int8_t is_high_than_top (Stack * s, char op);
+int8_t is_high_than_top (Stack * s, StackType op);
 
 // Devuelve 1 (verdadero) Si el operador op está soportado.
-int8_t is_supported_operator (char op);
+int8_t is_supported_operator (StackType op);
 
 // Devuelve 1 si el valor es una variable (una letra).
-int8_t is_variable (char var);
+int8_t is_variable (StackType var);
 
 #endif
