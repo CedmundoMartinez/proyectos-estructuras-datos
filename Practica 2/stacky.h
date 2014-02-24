@@ -75,7 +75,7 @@ Stack *alloc_stack();
 
 // Libera la memoria usada por una pila (y sus elementos).
 // No se usa con pilas estáticas.
-void free_stack(Stack *);
+void free_stack(Stack *s);
 
 // Inicializa una pila (en caso de ser estática, establece la cabeza a -1)
 // 	en caso de ser dinámica, inicializará la memoria.

@@ -27,6 +27,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE. 
  */
 #include "stacky.h"
+#include <stdint.h>
+#include <stdio.h>
 
 //////////////////////////////////
 /// Métodos de uso de memoria ///
@@ -37,9 +39,10 @@ void init_stack (Stack * s){
 }
 
 Stack *alloc_stack(){
+  return NULL;
 }
 
-void free_stack(Stack *){
+void free_stack(Stack *s){
 }
 
 //////////////////////////////////
