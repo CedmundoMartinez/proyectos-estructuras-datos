@@ -42,9 +42,6 @@
 #include "postfixy.h"
 #include "sci.h"
 
-int8_t is_variable(char v) { return v > 'A' && v < 'Z'; }
-int8_t is_operation(char v) { return v == '+' || v == '-' || v == '*' || v == '/' || v == '^'; }
-
 static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     const char *raw = buffer->raw_data;
     const int32_t len = buffer->size;
@@ -72,7 +69,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             pastbyte = 0;
 
         is_cur_variable = is_variable(curbyte);
-        is_cur_operation = is_operation(curbyte);
+        is_cur_operation = is_supported_operator(curbyte);
 
         if (!is_cur_variable && !is_cur_operation){
             printf("Solamente se admiten variables (A,B,C,...,Z) y operadores +,-,/,*,^\n");
@@ -84,7 +81,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             return K_SCI_AGAIN;
         }
 
-        if (is_cur_operation && pastbyte != 0 && is_operation(pastbyte)){
+        if (is_cur_operation && pastbyte != 0 && is_supported_operator(pastbyte)){
             printf("Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
             printf("** No se soporta el operador negativo aún.\n");
             return K_SCI_AGAIN;

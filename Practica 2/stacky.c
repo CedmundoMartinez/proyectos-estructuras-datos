@@ -76,4 +76,8 @@ void print_stack (Stack * s){
     }
 }
 
+int32_t get_static_stack_capacity(){ 
+  return STACK_STATIC_SIZE; 
+}
+
 //////////////////////////////////

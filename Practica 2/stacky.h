@@ -49,10 +49,6 @@
 #error No se ha definido un tipo de pila (defina STACK_TYPE).
 #endif
 
-
-// Devuelve el valor del tamaño definido de las pilas estáticas.
-int32_t get_static_stack_capacity(){ return STACK_STATIC_SIZE; }
-
 //
 // El tipo de dato que será almacenado
 //	dentro de la pila.
@@ -102,5 +98,8 @@ int8_t is_empty (Stack * s);
 
 // Imprime la pila en formato plano.
 void print_stack(Stack * s);
+
+// Devuelve el valor del tamaño definido de las pilas estáticas.
+int32_t get_static_stack_capacity();
 
 #endif
