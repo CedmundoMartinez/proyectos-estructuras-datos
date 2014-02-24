@@ -51,12 +51,17 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     int64_t i;
     
     if (len > 15){
-        printf("La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una operación más pequeña.\n");
+        printf("ERROR: La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una operación más pequeña.\n");
         return K_SCI_AGAIN;
     }
 
     if (len == 0){
-        printf("Favor de ingresar una operación.\n");
+        printf("ERROR: Favor de ingresar una operación.\n");
+        return K_SCI_AGAIN;
+    }
+
+    if (len < 3){
+        printf("ERROR: Cantidad de operandos y/o operadores inferior a la mínima requerida (>2)\n");
         return K_SCI_AGAIN;
     }
 
@@ -72,23 +77,23 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
         is_cur_operation = is_supported_operator(curbyte);
 
         if (!is_cur_variable && !is_cur_operation){
-            printf("Solamente se admiten variables (A,B,C,...,Z) y operadores +,-,/,*,^\n");
+            printf("ERROR: Solamente se admiten variables (A,B,C,...,Z) y operadores +,-,/,*,^\n");
             return K_SCI_AGAIN;
         }
 
         if (is_cur_variable && pastbyte != 0 && is_variable(pastbyte)){
-            printf("Error en la pocisión %ld y %ld: No puede haber dos variables juntas.\n", i, i+1);
+            printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos variables juntas.\n", i, i+1);
             return K_SCI_AGAIN;
         }
 
         if (is_cur_operation && pastbyte != 0 && is_supported_operator(pastbyte)){
-            printf("Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
-            printf("** No se soporta el operador negativo aún.\n");
+            printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
+            printf("AVISO: No se soporta el operador negativo aún.\n");
             return K_SCI_AGAIN;
         }
 
         if (is_cur_operation && i == 0){
-            printf("El valor ingresado puede causar una salida erronea.\n");
+            printf("ERROR: El valor ingresado puede causar una salida erronea.\n");
             return K_SCI_AGAIN;   
         }
     }
@@ -110,7 +115,10 @@ int main(int argc, char **argv){
         init_stack (&primary);
         init_stack (&auxiliar);
     
-        printf("ENTRADA: Sólo se admiten variables (A-Z), operadores +,-,*,/,^ y un máximo %d caracteres.", capacity-1);
+        printf("==== AVISO ===="
+                "\nSólo se admiten variables (A-Z), operadores +,-,*,/,^,"
+                " sin espacios y un máximo %d caracteres y mínimo 3.\n", capacity-1);
+
         secure_prompt("Ingrese una operación en notación infija: ", buffer, &validate_infixed_syntax);
         
         if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))
