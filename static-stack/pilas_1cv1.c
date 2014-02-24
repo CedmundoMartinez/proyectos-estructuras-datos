@@ -68,17 +68,19 @@ int main(int argc, char **argv){
     
     char buffer[STATIC_SIZE];
     buffer[STATIC_SIZE-1] = 0;
+
+    printf("Programa para convertir a notación postfija.\n");
     
     Stack primary;
     Stack auxiliar;
-    
-    init_stack (&primary);
-    init_stack (&auxiliar);
-    
-    printf("Programa para convertir a notación postfija.\n");
-    printf("Ingrese una operación en notación normal (no más de %d caracteres): ", STATIC_SIZE);
-    
+
     do {
+        init_stack (&primary);
+        init_stack (&auxiliar);
+    
+        printf("Ingrese una operación en notación infija (no más de %d caracteres): ", STATIC_SIZE);
+    
+
         do {
             scanf("%s", buffer);
         
@@ -89,9 +91,8 @@ int main(int argc, char **argv){
             }
         } while (1);
     
-        if (perform_postfixed (buffer, &primary, &auxiliar)){
-	    printf("No se ha ingresado una entrada válida\n");
-    }else break;
+        if (!perform_postfixed (buffer, &primary, &auxiliar))
+	   break;
 
     } while(1);
     
