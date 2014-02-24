@@ -32,9 +32,9 @@ POSSIBILITY OF SUCH DAMAGE.
 
 // ¿Usamos pilas dinámicas o estáticas?
 #ifdef USE_DYNAMIC_STACK
-#warning Pilas dinámicas aún no implementadas.
-#ifdef USE_HYBRID_RUNTIME
-#warning Pilas híbridas aún no implementadas.
+  #warning Pilas dinámicas aún no implementadas.
+#elif USE_HYBRID_RUNTIME
+  #warning Pilas híbridas aún no implementadas.
 #elif USE_STATIC_STACK
 	// Si el tamaño de estáticas no está definido.
 	#ifndef STACK_STATIC_SIZE

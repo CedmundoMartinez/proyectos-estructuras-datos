@@ -34,23 +34,10 @@ POSSIBILITY OF SUCH DAMAGE.
 * Boleta: 2013630284.
 * Grupo: 1CV1.
 */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-
-// Ésta configuración se debería hacer en CMake.
-// Queremos pilas estáticas.
-#define USE_STATIC_STACK
-
-// El tipo es char.
-#define STACK_TYPE char
-
-// Un tamaño estático de 16 elementos char.
-#define STACK_STATIC_SIZE 16
-
-// Incluímos la libreria Stacky para aplicar la configuración.
 #include "stacky.h"
 #include "postfixy.h"
 
