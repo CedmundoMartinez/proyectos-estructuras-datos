@@ -118,7 +118,7 @@ int64_t secure_read (FILE *file, SecuredBuffer *buffer, char endline) {
 	} else return buffer->size = 0;
 }
 
-int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidatorType){
+int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidationResult(*val)(const SecuredBuffer *) ){
 	ValidationResult result;
 	int64_t readbytes;
 
@@ -126,7 +126,7 @@ int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidatorType)
 		printf("%s", prompt);
 
 		readbytes = secure_read(stdin, buffer, '\n');
-		result = ValidatorType(buffer);
+		result = (*val)(buffer);
 
 	} while (result == K_SCI_AGAIN);
 
