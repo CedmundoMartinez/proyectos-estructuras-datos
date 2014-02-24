@@ -52,7 +52,10 @@ SecuredBuffer *create_buffer(int64_t capacity){
 
 	tmp->capacity = capacity;
 	tmp->size = 0;
-	memset (tmp->raw_data, 0, sizeof(char) * capacity);
+
+	size_t raw_size = sizeof(char) * capacity;
+	tmp->raw_data = (char *) malloc (raw_size);
+	memset (tmp->raw_data, 0, raw_size);
 
 	return tmp;
 }
