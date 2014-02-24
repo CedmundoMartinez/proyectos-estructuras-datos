@@ -90,11 +90,7 @@ int8_t get_precedence(StackType op){
 }
 
 int8_t is_supported_operator (StackType op) {
-    int8_t is_sup = op == '+' || op == '-' || op == '^' || op == '/' || op == '*';
-    if (!is_sup){
-        printf("Advertencia: el operador '%c' es invalido.\n", op);
-    }
-    return is_sup;
+    return op == '+' || op == '-' || op == '^' || op == '/' || op == '*';
 }
 
 int8_t is_variable (StackType var){
