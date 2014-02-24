@@ -99,7 +99,4 @@ int8_t is_empty (Stack * s);
 // Imprime la pila en formato plano.
 void print_stack(Stack * s);
 
-// Devuelve el valor del tamaño definido de las pilas estáticas.
-int32_t get_static_stack_capacity();
-
 #endif

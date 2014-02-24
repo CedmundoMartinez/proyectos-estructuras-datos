@@ -93,7 +93,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
 int main(int argc, char **argv){
     
-    int32_t capacity = get_static_stack_capacity();
+    int32_t capacity = STACK_STATIC_SIZE;
     SecuredBuffer *buffer = create_buffer(capacity+1);
 
     printf("Programa para convertir a notación postfija.\n");
