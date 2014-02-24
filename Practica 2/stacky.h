@@ -30,6 +30,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef __STACKY_H__
 #define __STACKY_H__
 
+#include <stdint.h>
+
 // ¿Usamos pilas dinámicas o estáticas?
 #ifdef USE_DYNAMIC_STACK
   #warning Pilas dinámicas aún no implementadas.
