@@ -30,7 +30,7 @@
 	$(CC) -c $(CFLAGS) $<
 
 CC = gcc
-CFLAGS = -g -Wall -O2 -DUSE_STATIC_STACK -DSTACK_TYPE=char -DSTACK_STATIC_SIZE=16
+CFLAGS = -g -Wall -O0 -DUSE_STATIC_STACK -DSTACK_TYPE=char -DSTACK_STATIC_SIZE=16
 SRC = main.c stacky.c postfixy.c sci.c
 OBJ = main.o stacky.o postfixy.o sci.o
 
