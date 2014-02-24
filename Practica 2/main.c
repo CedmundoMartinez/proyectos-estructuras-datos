@@ -77,7 +77,8 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
         is_cur_operation = is_supported_operator(curbyte);
 
         if (!is_cur_variable && !is_cur_operation){
-            printf("ERROR: Solamente se admiten variables (A,B,C,...,Z) y operadores +,-,/,*,^\n");
+            printf("ERROR: En pocisión %d ('%c'), solamente se admiten variables "
+                    "(A,B,C,...,Z) y operadores +,-,/,*,^\n", i+1, curbyte);
             return K_SCI_AGAIN;
         }
 
