@@ -67,7 +67,7 @@ void full_recycle(SecuredBuffer *buffer){
 	assert (buffer->raw_data != NULL);
 
 	buffer->size = 0;
-	memset (tmp->raw_data, 0, sizeof(char) * buffer->capacity);
+	memset (buffer->raw_data, 0, sizeof(char) * buffer->capacity);
 }
 
 void destroy_buffer(SecuredBuffer *buffer){
@@ -118,7 +118,7 @@ int64_t secure_read (FILE *file, SecuredBuffer *buffer, char endline) {
 	} else return buffer->size = 0;
 }
 
-int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidatorType){
+int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidationResult(*)(const SecuredBuffer *) validator){
 	ValidationResult result;
 	int64_t readbytes;
 
@@ -126,7 +126,7 @@ int64_t secure_prompt (const char *prompt, SecuredBuffer *buffer, ValidatorType)
 		printf("%s", prompt);
 
 		readbytes = secure_read(stdin, buffer, '\n');
-		result = ValidatorType(buffer)
+		result = validator(buffer);
 
 	} while (result == K_SCI_AGAIN);
 
