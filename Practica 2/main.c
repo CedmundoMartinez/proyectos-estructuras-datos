@@ -86,6 +86,11 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             printf("** No se soporta el operador negativo aún.\n");
             return K_SCI_AGAIN;
         }
+
+        if (is_cur_operation && i == 0){
+            printf("El valor ingresado puede causar una salida erronea.\n");
+            return K_SCI_AGAIN;   
+        }
     }
 
     return K_SCI_CONTINUE;
