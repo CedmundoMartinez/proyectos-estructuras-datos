@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE. 
 
 CC=gcc
-CFLAGS=-c -Wall -g
+CFLAGS=-c -Wall -g -DSTACK_TYPE=char -DUSE_STATIC_STACK -DSTACK_STATIC_SIZE=16
 LDFLAGS=-lm
 SOURCES=main.c postfixy.c sci.c stacky.c evaly.c
 OBJECTS=$(SOURCES:.c=.o)
