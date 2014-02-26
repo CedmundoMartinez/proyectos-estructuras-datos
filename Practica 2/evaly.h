@@ -32,12 +32,12 @@
 
 #define K_RESULT_VARIABLE '@'
 
-double [] get_variables();
-
 double get_variable_value(StackType variable);
 void set_variable_value(StackType variable, double value);
 
 void reverse(Stack * origin, Stack * result);
 double evaluate (Stack * expression);
+
+double * get_variables();
 
 #endif
