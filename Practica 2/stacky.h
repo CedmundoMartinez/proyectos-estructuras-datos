@@ -26,8 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
  
-#ifndef __STACKY_H__
-#define __STACKY_H__
+#ifndef STACKY_H
+#define STACKY_H
 
 #include <stdint.h>
 

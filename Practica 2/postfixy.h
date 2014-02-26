@@ -27,8 +27,8 @@
 // POSSIBILITY OF SUCH DAMAGE. 
  
 
-#ifndef __POSTFIXY__H__
-#define __POSTFIXY__H__
+#ifndef POSTFIXY_H
+#define POSTFIXY_H
 
 #include <stdint.h>
 #include "stacky.h"

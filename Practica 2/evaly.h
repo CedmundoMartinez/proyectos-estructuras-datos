@@ -25,8 +25,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
  
-#ifndef __EVALY_H__
-#define __EVALY_H__
+#ifndef EVALY_H
+#define EVALY_H
 
 #include "stacky.h"
 
