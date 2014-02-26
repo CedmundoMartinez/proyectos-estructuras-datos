@@ -69,7 +69,7 @@ double evaluate (Stack * expression){
 		operation = pop(expression);
 	}
 
-	printf("\n%c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
+	//printf("\n%c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
 
 	if ( !(is_variable(left) || left == '@') || !(is_variable(right) || right == '@') ){
 		printf("Sintaxis inválida: %d", expression->top);
