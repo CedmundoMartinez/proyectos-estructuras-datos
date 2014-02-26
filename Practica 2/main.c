@@ -74,10 +74,9 @@ int main(int argc, char **argv){
     
     printf("\n===== Evaluando expresiones =====\n");
     reverse(&primary, &auxiliar);
-    printf("Expresión invertida: ");
-    print_stack (&auxiliar);
-
-    //evaluate(&auxiliar);
+    //printf("Expresión invertida: ");
+    //print_stack (&auxiliar);
+    evaluate(&auxiliar);
 
     destroy_buffer(buffer);
     printf("\n");
