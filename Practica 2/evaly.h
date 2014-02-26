@@ -39,5 +39,7 @@ void reverse(Stack * origin, Stack * result);
 double evaluate (Stack * expression);
 
 double * get_variables();
+void fill_used(Stack * s);
+int8_t * get_variable_use();
 
 #endif

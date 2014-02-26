@@ -115,24 +115,45 @@ void reverse(Stack * origin, Stack * result){
 }
 
 double get_variable_value(StackType variable){
-	return get_variables()[variable - '@'];
+	return get_variables()[ (int32_t) variable - '@'];
 }
 
 void set_variable_value(StackType variable, double value){
-	get_variables()[variable - '@'] = value;
+	get_variables()[ (int32_t) variable - '@'] = value;
 }
 
-int8_t * get_used_variables(){
+void fill_used(Stack * s){
+	int32_t i;
+	char a;
+
+	for(i=0;i<s->top;i++){
+		a = s->contents[i];
+
+		if (is_variable(a)){
+			get_variable_use()[ (int32_t) a - '@'] = 1;
+		}
+	}
+}
+
+int8_t * get_variable_use(){
 	static int8_t used [] = {
-		
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0,
+		0, 0
 	};
+
+	return used;
 }
 
 double * get_variables(){
 	static double variables [] = {
-		1.0, 1.0, 1.0, 1.0, 
-		1.0, 1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0, 1.0 };
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0 };
 
 	return variables;
 }

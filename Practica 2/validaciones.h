@@ -37,6 +37,27 @@
 #include "postfixy.h"
 #include "sci.h"
 
+static ValidationResult validate_only_numbers (const SecuredBuffer *buffer) {
+    const char *raw = buffer->raw_data;
+    const int32_t len = buffer->size;
+
+    int64_t i;
+
+    if (len == 0){
+        printf("ERROR: Favor de ingresar un número.\n");
+        return K_SCI_AGAIN;
+    }
+
+    for (i=0;i<len;i++){
+        if ( !( (raw[i] >= '0' && raw[i] <= '9') || raw[i] == '.') ){
+            printf("ERROR: Favor de ingresar un número real.\n");
+            return K_SCI_AGAIN;
+        }
+    }
+
+    return K_SCI_CONTINUE;
+}
+
 static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     const char *raw = buffer->raw_data;
     const int32_t len = buffer->size;

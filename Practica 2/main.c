@@ -36,13 +36,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <ctype.h>
+#include <stdlib.h>
 
 #include "stacky.h"
 #include "postfixy.h"
 #include "sci.h"
 #include "validaciones.h"
 #include "evaly.h"
+
+void interactive_assign_variable_values();
 
 int main(int argc, char **argv){
     
@@ -72,6 +74,10 @@ int main(int argc, char **argv){
     printf("Resultado en notación postfija: ");
     print_stack (&primary);
     
+    // Rellenamos las variables.
+    fill_used(&primary);
+    interactive_assign_variable_values();
+
     printf("\n===== Evaluando expresiones =====\n");
     reverse(&primary, &auxiliar);
     //printf("Expresión invertida: ");
@@ -81,4 +87,32 @@ int main(int argc, char **argv){
     destroy_buffer(buffer);
     printf("\n");
     return 0;
+}
+
+void interactive_assign_variable_values(){
+    int i;
+    char var_name;
+    SecuredBuffer * buffer = create_buffer(8);
+
+    printf("\n");
+
+    for (i=1;i<27;i++){
+        if (get_variable_use()[i]){
+            var_name = i+'@';
+
+            printf("%c", var_name);
+            secure_prompt("=", buffer, &validate_only_numbers);
+            set_variable_value (var_name, atof(buffer->raw_data));
+        }
+    }
+
+    for (i=1;i<27;i++){
+        if (get_variable_use()[i]){
+            var_name = i+'@';
+
+            printf("%c=%lf\n", var_name, get_variable_value(var_name));
+        }
+    }
+
+    destroy_buffer(buffer);
 }
