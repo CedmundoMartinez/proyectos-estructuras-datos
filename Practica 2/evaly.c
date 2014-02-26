@@ -32,6 +32,14 @@
 #include <math.h>
 #include <stdio.h>
 
+void reverse(Stack * origin, Stack * result){
+
+	while (!is_empty(origin)){
+		push (result, pop(origin));
+	}
+	
+}
+
 /// AB+C*
 //  ---> R = AB+
 //    RC*

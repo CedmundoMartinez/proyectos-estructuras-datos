@@ -41,6 +41,7 @@ double variables [] = {
 double get_variable_value(StackType variable);
 void set_variable_value(StackType variable, double value);
 
+void reverse(Stack * origin, Stack * result);
 double evaluate (Stack * expression);
 
 #endif

@@ -72,8 +72,12 @@ int main(int argc, char **argv){
     printf("Resultado en notación postfija: ");
     print_stack (&primary);
     
-    printf("\nEvaluando expresiones: ");
-    evaluate(&primary);
+    printf("\n===== Evaluando expresiones =====\n");
+    reverse(&primary, &auxiliar);
+    printf("Expresión invertida: ");
+    print_stack (&auxiliar);
+
+    //evaluate(&auxiliar);
 
     destroy_buffer(buffer);
     printf("\n");
