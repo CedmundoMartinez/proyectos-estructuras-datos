@@ -30,9 +30,17 @@
 
 #include "stacky.h"
 
+#define K_RESULT_VARIABLE '@'
+
+// @, A, B, C, ... Z
+const double cd_variables [] = {
+		1.0, 1.0, 1.0, 1.0, 
+		1.0, 1.0, 1.0, 1.0,
+		1.0, 1.0, 1.0, 1.0 };
+
 double get_variable_value(StackType variable);
 void set_variable_value(StackType variable, double value);
 
-double evaluate (Stack * stack);
+double evaluate (Stack * expression);
 
 #endif

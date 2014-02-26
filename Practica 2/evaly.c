@@ -28,32 +28,40 @@
 #include "psotfixy.h"
 #include "evaly.h"
 #include "stacky.h"
+#include "math.h"
 
 /// AB+C*
-//  --- > R = AB+
-//  RC*
-//  --- > R = RC*
+//  ---> R = AB+
+//    RC*
+//    ---> R = RC*
+//      R
 
 /// ABC+*
-//   --- > R = BC+
-//  AR*
-//  --- > R = AR*
-//  R
+//   ---> R = BC+
+//    AR*
+//    ---> R = AR*
+//      R
+
+//  A*B/C+D
+//  ABCD*/+
 
 double evaluate (Stack * expression){
 	StackType operation;
 	StackType right;
 	StackType left;
+	StackType tmp;
+	tmp = 0;
 
-	Stack tmp;
-	init_stack(tmp);
+	if (expression->top == 0){
+		return get_variable_value(K_RESULT_VARIABLE);
+	}
 
 	left = pop(expression);
 	right = pop(expression);
 	operation = pop(expression);
 
-	while( !is_variable(operation) ){
-		push(tmp, left);
+	if( !is_variable(operation) ){
+		tmp = left;
 		left = right;
 		right = operation;
 		operation = pop(expression);
@@ -63,5 +71,42 @@ double evaluate (Stack * expression){
 		printf("Sintaxis inválida: %ld", expression->top);
 		return 0;
 	}
+
+	double a = get_variable_value(left);
+	double b = get_variable_value(right);
+	double r = 0;
+
+	switch(operation){
+	case '+': r = a + b; break;
+	case '-': r = a - b; break;
+	case '*': r = a * b; break;
 	
+	case '/': 
+		if (b == 0){
+			printf("División entre cero: %ld", expression->top);
+			return 0;
+		}
+		
+		r = a / b; 
+		break;
+		
+	case '^': r = pow(a, b); break;
+	}
+
+	set_variable_value(K_RESULT_VARIABLE, r);
+	push(expression, K_RESULT_VARIABLE);
+
+	if (tmp != 0)
+		push(expression, tmp);
+
+	return evaluate(expression);
+}
+
+
+double get_variable_value(StackType variable){
+	return cd_variables[variable - '@'];
+}
+
+void set_variable_value(StackType variable, double value){
+	cd_variables[variable - '@'] = value;
 }

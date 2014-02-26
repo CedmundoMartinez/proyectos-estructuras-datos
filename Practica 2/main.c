@@ -73,7 +73,7 @@ int main(int argc, char **argv){
     print_stack (&primary);
     
     printf("\nEvaluando expresiones: ");
-    evaluate(primary);
+    evaluate(&primary);
 
     destroy_buffer(buffer);
     printf("\n");
