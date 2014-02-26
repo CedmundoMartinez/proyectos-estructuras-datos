@@ -113,11 +113,11 @@ void reverse(Stack * origin, Stack * result){
 }
 
 double get_variable_value(StackType variable){
-	return variables[variable - '@'];
+	return get_variables()[variable - '@'];
 }
 
 void set_variable_value(StackType variable, double value){
-	variables[variable - '@'] = value;
+	get_variables()[variable - '@'] = value;
 }
 
 double * get_variables(){
