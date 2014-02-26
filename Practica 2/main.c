@@ -41,8 +41,8 @@
 #include "stacky.h"
 #include "postfixy.h"
 #include "sci.h"
-#include "evaly.h"
 #include "validaciones.h"
+#include "evaly.h"
 
 int main(int argc, char **argv){
     

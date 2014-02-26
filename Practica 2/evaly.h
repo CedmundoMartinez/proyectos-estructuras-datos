@@ -32,11 +32,7 @@
 
 #define K_RESULT_VARIABLE '@'
 
-// @, A, B, C, ... Z
-double variables [] = {
-		1.0, 1.0, 1.0, 1.0, 
-		1.0, 1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0, 1.0 };
+double [] get_variables();
 
 double get_variable_value(StackType variable);
 void set_variable_value(StackType variable, double value);

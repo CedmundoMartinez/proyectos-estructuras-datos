@@ -119,3 +119,12 @@ double get_variable_value(StackType variable){
 void set_variable_value(StackType variable, double value){
 	variables[variable - '@'] = value;
 }
+
+double [] get_variables(){
+	static double variables [] = {
+		1.0, 1.0, 1.0, 1.0, 
+		1.0, 1.0, 1.0, 1.0,
+		1.0, 1.0, 1.0, 1.0 };
+
+	return variables;
+}
