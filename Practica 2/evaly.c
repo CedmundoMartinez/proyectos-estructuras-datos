@@ -25,7 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-#include "psotfixy.h"
+#include "postfixy.h"
 #include "evaly.h"
 #include "stacky.h"
 #include "math.h"
