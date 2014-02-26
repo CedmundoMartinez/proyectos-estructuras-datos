@@ -72,12 +72,12 @@ double evaluate (Stack * expression){
 	//printf("\n%c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
 
 	if ( !(is_variable(left) || left == '@') || !(is_variable(right) || right == '@') ){
-		printf("Sintaxis inválida: %d", expression->top);
+		printf("Sintaxis inválida: %d\n", expression->top);
 		return 0;
 	}
 
-	double a = get_variable_value(right);
-	double b = get_variable_value(left);
+	double a = get_variable_value(left);
+	double b = get_variable_value(right);
 	double r = 0;
 
 	switch(operation){
@@ -87,7 +87,7 @@ double evaluate (Stack * expression){
 	
 	case '/': 
 		if (b == 0){
-			printf("División entre cero: %d", expression->top);
+			printf("División entre cero: %d\n", expression->top);
 			return 0;
 		}
 		
