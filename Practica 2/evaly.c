@@ -28,7 +28,9 @@
 #include "postfixy.h"
 #include "evaly.h"
 #include "stacky.h"
-#include "math.h"
+
+#include <math.h>
+#include <stdio.h>
 
 /// AB+C*
 //  ---> R = AB+
@@ -68,7 +70,7 @@ double evaluate (Stack * expression){
 	}
 
 	if ( !is_variable(left) || !is_variable(right) ){
-		printf("Sintaxis inválida: %ld", expression->top);
+		printf("Sintaxis inválida: %d", expression->top);
 		return 0;
 	}
 
@@ -83,7 +85,7 @@ double evaluate (Stack * expression){
 	
 	case '/': 
 		if (b == 0){
-			printf("División entre cero: %ld", expression->top);
+			printf("División entre cero: %d", expression->top);
 			return 0;
 		}
 		
@@ -104,9 +106,9 @@ double evaluate (Stack * expression){
 
 
 double get_variable_value(StackType variable){
-	return cd_variables[variable - '@'];
+	return variables[variable - '@'];
 }
 
 void set_variable_value(StackType variable, double value){
-	cd_variables[variable - '@'] = value;
+	variables[variable - '@'] = value;
 }

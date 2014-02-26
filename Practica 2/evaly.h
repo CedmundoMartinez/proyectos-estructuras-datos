@@ -33,7 +33,7 @@
 #define K_RESULT_VARIABLE '@'
 
 // @, A, B, C, ... Z
-const double cd_variables [] = {
+double variables [] = {
 		1.0, 1.0, 1.0, 1.0, 
 		1.0, 1.0, 1.0, 1.0,
 		1.0, 1.0, 1.0, 1.0 };
