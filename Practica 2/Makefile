@@ -25,23 +25,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 # POSSIBILITY OF SUCH DAMAGE. 
 
-.SUFFIXES: .o .c
+CC=gcc
+CFLAGS=-c -Wall -g
+LDFLAGS=-lm
+SOURCES=main.c postfixy.c sci.c stacky.c evaly.c
+OBJECTS=$(SOURCES:.c=.o)
+EXECUTABLE=main
+
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
 .c.o:
-	$(CC) -c $(CFLAGS) $<
-
-CC = gcc
-CFLAGS = -g -Wall -O0 -DUSE_STATIC_STACK -DSTACK_TYPE=char -DSTACK_STATIC_SIZE=16 -lm
-SRC = main.c stacky.c postfixy.c sci.c evaly.c
-OBJ = main.o stacky.o postfixy.o sci.o evaly.o
-
-all: $(OBJ)
-	$(CC) $(CFLAGS) -o main $(OBJ)
-
-clean:
-	$(RM) $(OBJ) main
-
-evaly.o: evaly.c
-sci.o: sci.c
-stacky.o: stacky.c
-postfixy.o: postfixy.c
-main.o: main.c
+	$(CC) $(CFLAGS) $< -o $@

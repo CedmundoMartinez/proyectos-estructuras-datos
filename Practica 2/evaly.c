@@ -32,14 +32,6 @@
 #include <math.h>
 #include <stdio.h>
 
-void reverse(Stack * origin, Stack * result){
-
-	while (!is_empty(origin)){
-		push (result, pop(origin));
-	}
-	
-}
-
 /// AB+C*
 //  ---> R = AB+
 //    RC*
@@ -112,6 +104,13 @@ double evaluate (Stack * expression){
 	return evaluate(expression);
 }
 
+void reverse(Stack * origin, Stack * result){
+
+	while (!is_empty(origin)){
+		push (result, pop(origin));
+	}
+	
+}
 
 double get_variable_value(StackType variable){
 	return variables[variable - '@'];
