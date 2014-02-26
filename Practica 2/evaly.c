@@ -62,15 +62,14 @@ double evaluate (Stack * expression){
 	right = pop(expression);
 	operation = pop(expression);
 
-
-	if( !is_variable(operation) ){
+	if( is_variable(operation) ){
 		tmp = left;
 		left = right;
 		right = operation;
 		operation = pop(expression);
 	}
 
-	printf("\n--- %c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
+	printf("\n%c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
 
 	if ( !is_variable(left) || !is_variable(right) ){
 		printf("Sintaxis inválida: %d", expression->top);
