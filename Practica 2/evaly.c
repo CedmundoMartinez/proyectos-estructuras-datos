@@ -122,6 +122,12 @@ void set_variable_value(StackType variable, double value){
 	get_variables()[variable - '@'] = value;
 }
 
+int8_t * get_used_variables(){
+	static int8_t used [] = {
+		
+	};
+}
+
 double * get_variables(){
 	static double variables [] = {
 		1.0, 1.0, 1.0, 1.0, 
