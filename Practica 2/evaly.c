@@ -1,4 +1,4 @@
-// Copyright (c) 2014, Carlos Edmundo Martínez Mendoza 
+	// Copyright (c) 2014, Carlos Edmundo Martínez Mendoza 
 // All rights reserved. 
 
 // Redistribution and use in source and binary forms, with or without 
@@ -24,58 +24,44 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
- 
 
-/*
-* Programa para convertir de notación infija a postfija.
-*
-* Alumno: Carlos Edmundo Martínez Mendoza.
-* Boleta: 2013630284.
-* Grupo: 1CV1.
-*/
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include <ctype.h>
-
-#include "stacky.h"
-#include "postfixy.h"
-#include "sci.h"
+#include "psotfixy.h"
 #include "evaly.h"
-#include "validaciones.h"
+#include "stacky.h"
 
-int main(int argc, char **argv){
-    
-    int32_t capacity = STACK_STATIC_SIZE;
-    SecuredBuffer *buffer = create_buffer(capacity+1);
+/// AB+C*
+//  --- > R = AB+
+//  RC*
+//  --- > R = RC*
 
-    printf("Programa para convertir a notación postfija.\n");
-    
-    Stack primary;
-    Stack auxiliar;
+/// ABC+*
+//   --- > R = BC+
+//  AR*
+//  --- > R = AR*
+//  R
 
-    do {
-        init_stack (&primary);
-        init_stack (&auxiliar);
-    
-        printf("==== AVISO ===="
-                "\nSólo se admiten variables (A-Z), operadores +,-,*,/,^,"
-                " sin espacios y un máximo %d caracteres y mínimo 3.\n", capacity-1);
+double evaluate (Stack * expression){
+	StackType operation;
+	StackType right;
+	StackType left;
 
-        secure_prompt("Ingrese una operación en notación infija: ", buffer, &validate_infixed_syntax);
-        
-        if (!perform_postfixed (buffer->raw_data, &primary, &auxiliar))
-	       break;
+	Stack tmp;
+	init_stack(tmp);
 
-    } while(1);
-    
-    printf("Resultado en notación postfija: ");
-    print_stack (&primary);
-    
-    printf("\nEvaluando expresiones: ");
-    evaluate(primary);
+	left = pop(expression);
+	right = pop(expression);
+	operation = pop(expression);
 
-    destroy_buffer(buffer);
-    printf("\n");
-    return 0;
+	while( !is_variable(operation) ){
+		push(tmp, left);
+		left = right;
+		right = operation;
+		operation = pop(expression);
+	}
+
+	if ( !is_variable(left) || !is_variable(right) ){
+		printf("Sintaxis inválida: %ld", expression->top);
+		return 0;
+	}
+	
 }

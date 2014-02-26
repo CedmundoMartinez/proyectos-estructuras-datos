@@ -31,8 +31,8 @@
 
 CC = gcc
 CFLAGS = -g -Wall -O0 -DUSE_STATIC_STACK -DSTACK_TYPE=char -DSTACK_STATIC_SIZE=16
-SRC = main.c stacky.c postfixy.c sci.c
-OBJ = main.o stacky.o postfixy.o sci.o
+SRC = main.c stacky.c postfixy.c sci.c evaly.c
+OBJ = main.o stacky.o postfixy.o sci.o evaly.o
 
 all: $(OBJ)
 	$(CC) $(CFLAGS) -o main $(OBJ)
@@ -40,7 +40,8 @@ all: $(OBJ)
 clean:
 	$(RM) $(OBJ) main
 
-sci.o: sci.c sci.h
-stacky.o: stacky.c stacky.h
-postfixy.o: postfixy.c postfixy.h
-main.o: main.c stacky.h postfixy.h
+evaly.o: evaly.c
+sci.o: sci.c
+stacky.o: stacky.c
+postfixy.o: postfixy.c
+main.o: main.c
