@@ -92,10 +92,14 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
         is_cur_variable = is_variable(curbyte);
         is_cur_operation = is_supported_operator(curbyte);
-        is_cur_modifier = is_priority_modifier(curbyte);
+        is_cur_modifier = increases_prioriy(curbyte) || decreases_prioriy(curbyte);
+        is_past_modifier = increases_prioriy(pastbyte) || decreases_prioriy(pastbyte);
 
-        if ( is_cur_modifier ){
-            parentheses_couting = modify_priority (parentheses_couting, curbyte);
+        parentheses_couting = 
+            increases_prioriy(curbyte) ? parentheses_couting + 1 : 
+            (decreases_prioriy(curbyte) ? parentheses_couting - 1 : parentheses_couting);
+
+        if (is_cur_modifier){
             continue;
         }
 
@@ -110,7 +114,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             return K_SCI_AGAIN;
         }
 
-        if (is_cur_operation && pastbyte != 0 && is_supported_operator(pastbyte)){
+        if (is_cur_operation && pastbyte != 0 && (is_supported_operator(pastbyte) || !is_past_modifier) ){
             printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
             printf("AVISO: No se soporta el operador negativo aún.\n");
             return K_SCI_AGAIN;
