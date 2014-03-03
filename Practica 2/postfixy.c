@@ -135,10 +135,10 @@ void delete_higher_parenthesis(Stack * s){
         if ( increases_prioriy(c_element) )
             break;
 
-        push(auxiliar, c_element);
+        push(&auxiliar, c_element);
     }
 
-    while (!is_empty(auxiliar)){
-        push(s, pop(auxiliar));
+    while (!is_empty(&auxiliar)){
+        push(s, pop(&auxiliar));
     }
 }

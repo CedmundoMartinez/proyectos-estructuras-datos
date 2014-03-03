@@ -39,11 +39,11 @@
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * axuliar);
 
 // Obtiene el orden de precedencia del operador op.
-int32_t get_precedence(StackType op, int32_t nested_priority);
+int32_t get_precedence(StackType op);
 
 // Devuelve 1 (verdadero) si OP tiene mayor precedencia que
 //	la cima de la pila S. 0 (Falso) en caso contrario.
-int8_t is_high_than_top (Stack * s, StackType op, int32_t nested_priority);
+int8_t is_high_than_top (Stack * s, StackType op);
 
 // Devuelve 1 (verdadero) Si el operador op está soportado.
 int8_t is_supported_operator (StackType op);
