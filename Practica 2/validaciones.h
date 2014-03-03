@@ -63,7 +63,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     const int32_t len = buffer->size;
 
     char curbyte, pastbyte;
-    int8_t is_cur_variable, is_cur_operation, is_cur_modifier;
+    int8_t is_cur_variable, is_cur_operation, is_cur_modifier, is_past_modifier;
     int32_t parentheses_couting = 0;
     int64_t i;
     
