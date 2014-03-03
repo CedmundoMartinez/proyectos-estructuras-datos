@@ -39,3 +39,7 @@ $(EXECUTABLE): $(OBJECTS)
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm $(EXECUTABLE)
+	rm *.o
