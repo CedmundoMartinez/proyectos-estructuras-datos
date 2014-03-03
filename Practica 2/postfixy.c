@@ -39,10 +39,9 @@
 //  BC+A/
 // (A+B)
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar) {
-    int32_t i, operation_level;
+    int32_t i;
     StackType cur;
     
-    operation_level = 0;
     for (i = 0; i < strlen(buffer); i++ ){
         cur = toupper(buffer[i]);
         
@@ -57,11 +56,11 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
             if (is_empty (auxiliar)){
                 push (auxiliar, cur);
             }else{
-                if (is_high_than_top(auxiliar, cur, operation_level)){
+                if (is_high_than_top(auxiliar, cur)){
                     push (auxiliar, cur);
                     
                 } else {
-                    while (  !is_high_than_top(auxiliar, cur, operation_level) && !is_empty(auxiliar)){
+                    while (  !is_high_than_top(auxiliar, cur) && !is_empty(auxiliar)){
                         push (primary, pop(auxiliar));
                     }
                     
