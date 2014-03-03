@@ -34,16 +34,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-//
-// A*B+C
-//  AB*C+
-
-// A/(B+C)-D
-// A*(B+C)
-
-// -
-// ABC+/D-
-
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar) {
     int32_t i;
     StackType cur;
@@ -56,7 +46,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         }else if ( increases_prioriy(cur) ) {
             push (auxiliar, cur);
         }else if ( decreases_prioriy(cur) ) {
-            delete_higher_parenthesis (auxiliar, primary);
+            push_until_left_parentheses (auxiliar, primary);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
@@ -128,7 +118,7 @@ int8_t decreases_prioriy (StackType op){
     return op == ')' || op == '}' || op == ']';
 }
 
-void delete_higher_parenthesis(Stack * s, Stack * auxiliar){
+void push_until_left_parentheses(Stack * s, Stack * auxiliar){
     StackType c_element;
 
     while (!is_empty(s)){
