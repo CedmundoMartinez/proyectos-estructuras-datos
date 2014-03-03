@@ -130,7 +130,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     }
 
     if (parentheses_couting != 0){
-        printf("ERROR: No se han cerrado todos los paréntesis.\n");
+        printf("ERROR: Verifique los paréntesis, no ha abierto o cerrado alguno adecuadamente.\n");
         return K_SCI_AGAIN; 
     }
 
