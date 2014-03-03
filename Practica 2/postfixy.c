@@ -48,7 +48,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         if ( is_variable(cur) ){
             push (primary, cur);
         }else if ( decreases_prioriy(cur) ) {
-            delete_higher_parenthesis (auxiliar);
+            delete_higher_parenthesis (primary);
         }else if ( is_supported_operator (cur) || increases_prioriy(cur) ){
             
             if (is_empty (auxiliar)){
@@ -56,7 +56,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
             }else{
                 if (is_high_than_top(auxiliar, cur)){
                     push (auxiliar, cur);
-                    
+
                 } else {
                     while (  !is_high_than_top(auxiliar, cur) && !is_empty(auxiliar)){
                         push (primary, pop(auxiliar));
@@ -126,17 +126,12 @@ void delete_higher_parenthesis(Stack * s){
 
     init_stack(&auxiliar);
 
-    print_stack(s);
-    printf("\n");
-
     while (!is_empty(s)){
         c_element = pop(s);
-        printf ("(%c ", c_element);
         
         if ( increases_prioriy(c_element) )
             break;
 
-        printf ("%c) ", c_element);
         push(&auxiliar, c_element);
     }
 
