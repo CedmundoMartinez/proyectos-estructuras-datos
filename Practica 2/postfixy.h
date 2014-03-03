@@ -58,6 +58,6 @@ int8_t increases_prioriy (StackType op);
 int8_t decreases_prioriy (StackType op);
 
 // Quita el paréntesis que esté más arriba de la pila s.
-void delete_higher_parenthesis(Stack * s);
+void delete_higher_parenthesis(Stack * s, Stack * auxiliar);
 
 #endif
