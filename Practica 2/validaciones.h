@@ -114,10 +114,12 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             return K_SCI_AGAIN;
         }
 
-        if (is_cur_operation && pastbyte != 0 && (is_supported_operator(pastbyte) || !is_past_modifier) ){
-            printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
-            printf("AVISO: No se soporta el operador negativo aún.\n");
-            return K_SCI_AGAIN;
+        if ( !(is_cur_operation && is_past_modifier) ){
+            if (is_cur_operation && pastbyte != 0 && is_supported_operator(pastbyte) ){
+                printf("ERROR: Error en la pocisión %ld y %ld: No puede haber dos operadores juntos.\n", i, i+1);
+                printf("AVISO: No se soporta el operador negativo aún.\n");
+                return K_SCI_AGAIN;
+            }
         }
 
         if ( (is_cur_operation && i == 0) || (is_cur_operation && i == len-1) ){
