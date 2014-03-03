@@ -45,17 +45,17 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         if ( is_variable(cur) ){
             push (primary, cur);
         }else if ( is_priority_modifier(cur) ) {
-            operation_level = modify_priority(cur);
+            operation_level = modify_priority(operation_level, cur);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
                 push (auxiliar, cur);
             }else{
-                if (is_high_than_top(auxiliar, cur)){
+                if (is_high_than_top(auxiliar, cur, operation_level)){
                     push (auxiliar, cur);
                     
                 } else {
-                    while (  !is_high_than_top(auxiliar, cur) && !is_empty(auxiliar)){
+                    while (  !is_high_than_top(auxiliar, cur, operation_level) && !is_empty(auxiliar)){
                         push (primary, pop(auxiliar));
                     }
                     
