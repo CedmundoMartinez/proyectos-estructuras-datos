@@ -111,11 +111,11 @@ int8_t is_high_than_top (Stack * s, StackType op){
 }
 
 int8_t increases_prioriy (StackType op){
-    return op == '(' || op == '{' || op == '[';
+    return op == '(';
 }
 
 int8_t decreases_prioriy (StackType op){
-    return op == ')' || op == '}' || op == ']';
+    return op == ')';
 }
 
 void push_until_left_parentheses(Stack * s, Stack * auxiliar){

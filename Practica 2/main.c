@@ -61,7 +61,7 @@ int main(int argc, char **argv){
         init_stack (&auxiliar);
     
         printf("==== AVISO ===="
-                "\nSólo se admiten variables (A-Z), operadores +,-,*,/,^,"
+                "\nSólo se admiten variables (A-Z), operadores '+','-','/','*','^','(' o ')'"
                 " sin espacios y un máximo %d caracteres y mínimo 3.\n", capacity-1);
 
         secure_prompt("Ingrese una operación en notación infija: ", buffer, &validate_infixed_syntax);

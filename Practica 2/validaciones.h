@@ -105,7 +105,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
         if (!is_cur_variable && !is_cur_operation && !is_cur_modifier){
             printf("ERROR: En pocisión %ld ('%c'), solamente se admiten variables "
-                    "(A,B,C,...,Z) y operadores +,-,/,*,^,(,),{,},[,]\n", i+1, curbyte);
+                    "(A,B,C,...,Z) y operadores +,-,/,*,^,(,),[,]\n", i+1, curbyte);
             return K_SCI_AGAIN;
         }
 
