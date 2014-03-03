@@ -129,6 +129,6 @@ void delete_higher_parenthesis(Stack * s, Stack * auxiliar){
         if ( increases_prioriy(c_element) )
             break;
 
-        push(&auxiliar, c_element);
+        push(auxiliar, c_element);
     }
 }
