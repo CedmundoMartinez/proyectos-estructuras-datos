@@ -128,6 +128,7 @@ void delete_higher_parenthesis(Stack * s){
 
     init_stack(&auxiliar);
 
+    print_stack(s);
     printf("\n");
 
     while (!is_empty(s)){
