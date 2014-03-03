@@ -96,6 +96,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
         if ( is_cur_modifier ){
             parentheses_couting = modify_priority (parentheses_couting, curbyte);
+            continue;
         }
 
         if (!is_cur_variable && !is_cur_operation && !is_cur_modifier){
