@@ -35,9 +35,15 @@
 #include <stdlib.h>
 
 //
-// A/(B+C)
-//  BC+A/
-// (A+B)
+// A*B+C
+//  AB*C+
+
+// A/(B+C)-D
+// A*(B+C)
+
+// -
+// ABC+/D-
+
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar) {
     int32_t i;
     StackType cur;
@@ -50,7 +56,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         }else if ( increases_prioriy(cur) ) {
             push (auxiliar, cur);
         }else if ( decreases_prioriy(cur) ) {
-            delete_higher_parenthesis (auxiliar, primary);
+            delete_higher_parenthesis (primary, auxiliar);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
@@ -87,7 +93,7 @@ int32_t get_precedence(StackType op){
     int32_t prec = -1;
     
     switch(op){
-        case '(': prec = 3; break;
+        case '(': prec = -1; break;
 
         case '^': prec = 2; break;
         case '*': prec = 1; break;
