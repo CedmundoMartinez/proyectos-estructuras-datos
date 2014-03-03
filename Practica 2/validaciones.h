@@ -49,8 +49,8 @@ static ValidationResult validate_only_numbers (const SecuredBuffer *buffer) {
     }
 
     for (i=0;i<len;i++){
-        if ( !( (raw[i] >= '0' && raw[i] <= '9') || raw[i] == '.') ){
-            printf("ERROR: Favor de ingresar un número real.\n");
+        if ( !( (raw[i] >= '0' && raw[i] <= '9') || raw[i] == '.' || raw[i] == '-') ){
+            printf("ERROR: Favor de ingresar un número real (positivo o negativo).\n");
             return K_SCI_AGAIN;
         }
     }
