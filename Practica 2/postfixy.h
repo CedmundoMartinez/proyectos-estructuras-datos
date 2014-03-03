@@ -51,9 +51,13 @@ int8_t is_supported_operator (StackType op);
 // Devuelve 1 si el valor es una variable (una letra).
 int8_t is_variable (StackType var);
 
-// Devuelve 1 si el valor es un modificador de prioridad.
-int8_t is_priority_modifier (StackType op);
+// Devuelve 1 si el valor es un paréntesis izquierdo.
+int8_t increases_prioriy (StackType op);
 
-// Devuelve la prioridad modificada dependiendo del operador.
-int32_t modify_priority(int32_t prev, StackType op);
+// Devuelve 1 si el valor es un paréntesis derecho.
+int8_t decreases_prioriy (StackType op);
+
+// Quita el paréntesis que esté más arriba de la pila s.
+void delete_higher_parenthesis(Stack * s);
+
 #endif

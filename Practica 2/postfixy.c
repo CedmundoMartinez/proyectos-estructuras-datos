@@ -34,6 +34,10 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+//
+// A/(B+C)
+//  BC+A/
+// (A+B)
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar) {
     int32_t i, operation_level;
     StackType cur;
@@ -44,8 +48,10 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         
         if ( is_variable(cur) ){
             push (primary, cur);
-        }else if ( is_priority_modifier(cur) ) {
-            operation_level = modify_priority(operation_level, cur);
+        }else if ( increases_prioriy(cur) ) {
+            push (auxiliar, cur);
+        }else if ( decreases_prioriy(cur) ) {
+            delete_higher_parenthesis (auxiliar);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
@@ -70,21 +76,25 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
     }
     
     while (!is_empty(auxiliar)) {
-        push(primary, pop(auxiliar));
+        cur = pop(auxiliar);
+        if ( !decreases_prioriy(cur) || !increases_prioriy(cur) )
+            push(primary, cur);
     }
 
     return 0;
 }
 
-int32_t get_precedence(StackType op, int32_t nested_priority){
+int32_t get_precedence(StackType op){
     int32_t prec = -1;
     
     switch(op){
-        case '^': prec = nested_priority + 2; break;
-        case '*': prec = nested_priority + 1; break;
-        case '/': prec = nested_priority + 1; break;
-        case '+': prec = nested_priority + 0; break;
-        case '-': prec = nested_priority + 0; break;
+        case '(': prec = 3; break;
+
+        case '^': prec = 2; break;
+        case '*': prec = 1; break;
+        case '/': prec = 1; break;
+        case '+': prec = 0; break;
+        case '-': prec = 0; break;
     }
     
     return prec;
@@ -98,18 +108,37 @@ int8_t is_variable (StackType var){
     return var >= 'A' && var <= 'Z';
 }
 
-int8_t is_high_than_top (Stack * s, StackType op, int32_t nested_priority){
-    int8_t precedence_oper = get_precedence(op, nested_priority);
-    int8_t precedence_top = get_precedence(check_top(s), nested_priority);
-    //printf ("%c > %c? %d\n", op, check_top(s), precedence_oper > precedence_top);
+int8_t is_high_than_top (Stack * s, StackType op){
+    int8_t precedence_oper = get_precedence(op);
+    int8_t precedence_top = get_precedence(check_top(s));
     
     return precedence_oper > precedence_top;
 }
 
-int32_t modify_priority(int32_t prev, StackType op) {
-    return op == '(' || op == '[' || op == '{' ? prev+1 : prev-1;
+int8_t increases_prioriy (StackType op){
+    return op == '(' || op == '{' || op == '[';
 }
 
-int8_t is_priority_modifier (StackType op){
-    return op == '(' || op == ')' || op == '[' || op == ']' || op == '{' || op == '}';
+int8_t decreases_prioriy (StackType op){
+    return op == ')' || op == '}' || op == ']';
+}
+
+void delete_higher_parenthesis(Stack * s){
+    Stack auxiliar;
+    StackType c_element;
+
+    init_stack(&auxiliar);
+
+    while (!is_empty(s)){
+        c_element = pop(s);
+        
+        if ( increases_prioriy(c_element) )
+            break;
+
+        push(auxiliar, c_element);
+    }
+
+    while (!is_empty(auxiliar)){
+        push(s, pop(auxiliar));
+    }
 }
