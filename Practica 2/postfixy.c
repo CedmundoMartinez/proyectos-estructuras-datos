@@ -35,15 +35,17 @@
 #include <stdlib.h>
 
 int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar) {
-    int32_t i;
+    int32_t i, operation_level;
     StackType cur;
     
+    operation_level = 0;
     for (i = 0; i < strlen(buffer); i++ ){
         cur = toupper(buffer[i]);
         
         if ( is_variable(cur) ){
             push (primary, cur);
-            
+        }else if ( is_priority_modifier(cur) ) {
+            operation_level = modify_priority(cur);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
@@ -53,7 +55,6 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
                     push (auxiliar, cur);
                     
                 } else {
-                    
                     while (  !is_high_than_top(auxiliar, cur) && !is_empty(auxiliar)){
                         push (primary, pop(auxiliar));
                     }
@@ -75,32 +76,40 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
     return 0;
 }
 
-int8_t get_precedence(StackType op){
-    int8_t prec = -1;
+int32_t get_precedence(StackType op, int32_t nested_priority){
+    int32_t prec = -1;
     
     switch(op){
-        case '^': prec = 2; break;
-        case '*': prec = 1; break;
-        case '/': prec = 1; break;
-        case '+': prec = 0; break;
-        case '-': prec = 0; break;
+        case '^': prec = nested_priority + 2; break;
+        case '*': prec = nested_priority + 1; break;
+        case '/': prec = nested_priority + 1; break;
+        case '+': prec = nested_priority + 0; break;
+        case '-': prec = nested_priority + 0; break;
     }
     
     return prec;
 }
 
 int8_t is_supported_operator (StackType op) {
-    return op == '+' || op == '-' || op == '^' || op == '/' || op == '*';
+    return op == '+' || op == '-' || op == '^' || op == '/' || op == '*' || op == '(' || op == ')';
 }
 
 int8_t is_variable (StackType var){
     return var >= 'A' && var <= 'Z';
 }
 
-int8_t is_high_than_top (Stack * s, StackType op){
-    int8_t precedence_oper = get_precedence(op);
-    int8_t precedence_top = get_precedence(check_top(s));
+int8_t is_high_than_top (Stack * s, StackType op, int32_t nested_priority){
+    int8_t precedence_oper = get_precedence(op, nested_priority);
+    int8_t precedence_top = get_precedence(check_top(s), nested_priority);
     //printf ("%c > %c? %d\n", op, check_top(s), precedence_oper > precedence_top);
     
     return precedence_oper > precedence_top;
+}
+
+int32_t modify_priority(int32_t prev, StackType op) {
+    return op == '(' || op == '[' || op == '{' ? prev+1 : prev-1;
+}
+
+int8_t is_priority_modifier (StackType op){
+    return op == '(' || op == ')' || op == '[' || op == ']' || op == '{' || op == '}';
 }

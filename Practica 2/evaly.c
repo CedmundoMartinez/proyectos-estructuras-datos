@@ -1,4 +1,4 @@
-	// Copyright (c) 2014, Carlos Edmundo Martínez Mendoza 
+// Copyright (c) 2014, Carlos Edmundo Martínez Mendoza 
 // All rights reserved. 
 
 // Redistribution and use in source and binary forms, with or without 
@@ -33,16 +33,16 @@
 #include <stdio.h>
 
 /// AB+C*
-//  ---> R = AB+
-//    RC*
-//    ---> R = RC*
-//      R
+//  ---> @ = AB+
+//    @C*
+//    ---> @ = RC*
+//      @
 
 /// ABC+*
-//   ---> R = BC+
-//    AR*
-//    ---> R = AR*
-//      R
+//   ---> @ = BC+
+//    A@*
+//    ---> @ = A@*
+//      @
 
 //  A*B/C+D
 //  ABCD*/+
@@ -51,9 +51,13 @@ double evaluate (Stack * expression){
 	StackType operation;
 	StackType right;
 	StackType left;
-	StackType tmp;
-	tmp = 0;
-
+	
+	Stack tmpval;
+	Stack invtmp;
+	
+	init_stack(&tmpval);
+	init_stack(&invtmp);
+	
 	if (expression->top == 0){
 		return get_variable_value(K_RESULT_VARIABLE);
 	}
@@ -62,17 +66,15 @@ double evaluate (Stack * expression){
 	right = pop(expression);
 	operation = pop(expression);
 
-	if( is_variable(operation) ){
-		tmp = left;
+	while( is_variable(operation) || operation == '@' ){
+		push(&tmpval, left);
 		left = right;
 		right = operation;
 		operation = pop(expression);
 	}
 
-	//printf("\n%c, %c, %c, %c", tmp == 0 ? '-' : tmp, left, right, operation);
-
 	if ( !(is_variable(left) || left == '@') || !(is_variable(right) || right == '@') ){
-		printf("Sintaxis inválida: %d\n", expression->top);
+		printf("\nSintaxis inválida: %d\n", expression->top);
 		return 0;
 	}
 
@@ -87,7 +89,7 @@ double evaluate (Stack * expression){
 	
 	case '/': 
 		if (b == 0){
-			printf("División entre cero: %d\n", expression->top);
+			printf("\nDivisión entre cero: %d\n", expression->top);
 			return 0;
 		}
 		
@@ -98,20 +100,19 @@ double evaluate (Stack * expression){
 	}
 
 	set_variable_value(K_RESULT_VARIABLE, r);
+	
 	push(expression, K_RESULT_VARIABLE);
 
-	if (tmp != 0)
-		push(expression, tmp);
+	reverse(&tmpval, &invtmp);
+	reverse(&invtmp, expression);
 
 	return evaluate(expression);
 }
 
 void reverse(Stack * origin, Stack * result){
-
 	while (!is_empty(origin)){
 		push (result, pop(origin));
 	}
-	
 }
 
 double get_variable_value(StackType variable){

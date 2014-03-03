@@ -64,6 +64,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
     char curbyte, pastbyte;
     int8_t is_cur_variable, is_cur_operation;
+    int32_t parentheses_couting = 0;
     int64_t i;
     
     if (len > 15){
@@ -91,10 +92,15 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
 
         is_cur_variable = is_variable(curbyte);
         is_cur_operation = is_supported_operator(curbyte);
+        is_cur_modifier = is_priority_modifier(curbyte);
 
-        if (!is_cur_variable && !is_cur_operation){
+        if ( is_cur_modifier ){
+            parentheses_couting = modify_priority (parentheses_couting, curbyte);
+        }
+
+        if (!is_cur_variable && !is_cur_operation && !is_cur_modifier){
             printf("ERROR: En pocisión %ld ('%c'), solamente se admiten variables "
-                    "(A,B,C,...,Z) y operadores +,-,/,*,^\n", i+1, curbyte);
+                    "(A,B,C,...,Z) y operadores +,-,/,*,^,(,),{,},[,]\n", i+1, curbyte);
             return K_SCI_AGAIN;
         }
 
@@ -113,6 +119,12 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             printf("ERROR: El valor ingresado puede causar una salida erronea.\n");
             return K_SCI_AGAIN;   
         }
+
+    }
+
+    if (parentheses_couting != 0){
+        printf("ERROR: No se han cerrado todos los paréntesis.\n");
+        return K_SCI_AGAIN; 
     }
 
     return K_SCI_CONTINUE;
