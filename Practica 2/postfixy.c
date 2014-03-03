@@ -128,12 +128,16 @@ void delete_higher_parenthesis(Stack * s){
 
     init_stack(&auxiliar);
 
+    printf("\n");
+
     while (!is_empty(s)){
         c_element = pop(s);
+        printf ("(%c ", e_element);
         
         if ( increases_prioriy(c_element) )
             break;
 
+        printf ("%c) ", e_element);
         push(&auxiliar, c_element);
     }
 
