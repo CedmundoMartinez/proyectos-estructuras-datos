@@ -76,12 +76,13 @@ int main(int argc, char **argv){
     
     // Rellenamos las variables.
     fill_used(&primary);
-    interactive_assign_variable_values();
-
     printf("\n===== Evaluando expresiones =====\n");
+
+    interactive_assign_variable_values();
     reverse(&primary, &auxiliar);
+    
     //printf("Expresión invertida: ");
-    print_stack (&auxiliar);
+    print_stack (&primary);
     printf ("= %lf", evaluate(&auxiliar));
 
     destroy_buffer(buffer);
