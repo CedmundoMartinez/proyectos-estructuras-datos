@@ -56,7 +56,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         }else if ( increases_prioriy(cur) ) {
             push (auxiliar, cur);
         }else if ( decreases_prioriy(cur) ) {
-            delete_higher_parenthesis (primary, auxiliar);
+            delete_higher_parenthesis (auxiliar, primary);
         }else if ( is_supported_operator (cur) ){
             
             if (is_empty (auxiliar)){
