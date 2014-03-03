@@ -49,7 +49,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
             push (primary, cur);
         }else if ( decreases_prioriy(cur) ) {
             delete_higher_parenthesis (auxiliar);
-        }else if ( is_supported_operator (cur) ){
+        }else if ( is_supported_operator (cur) || increases_prioriy(cur) ){
             
             if (is_empty (auxiliar)){
                 push (auxiliar, cur);
@@ -98,7 +98,7 @@ int32_t get_precedence(StackType op){
 }
 
 int8_t is_supported_operator (StackType op) {
-    return op == '+' || op == '-' || op == '^' || op == '/' || op == '*' || op == '(' || op == ')';
+    return op == '+' || op == '-' || op == '^' || op == '/' || op == '*';
 }
 
 int8_t is_variable (StackType var){
