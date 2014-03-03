@@ -103,6 +103,13 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             continue;
         }
 
+        if ( (increases_prioriy(curbyte) && is_variable(pastbyte)) || 
+             (is_variable(curbyte) && decreases_prioriy(pastbyte)) ){
+            printf("ERROR: No se permiten las expresiones tipo A(B), puesto que no se soportan las funciones"
+                    " trascendentales ni la multiplicación implícita: %d.\n", i+1);
+            return K_SCI_AGAIN;
+        }
+
         if (!is_cur_variable && !is_cur_operation && !is_cur_modifier){
             printf("ERROR: En pocisión %ld ('%c'), solamente se admiten variables "
                     "(A,B,C,...,Z) y operadores +,-,/,*,^,(,),[,]\n", i+1, curbyte);
