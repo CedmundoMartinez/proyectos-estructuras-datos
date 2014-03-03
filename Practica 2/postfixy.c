@@ -120,11 +120,8 @@ int8_t decreases_prioriy (StackType op){
     return op == ')' || op == '}' || op == ']';
 }
 
-void delete_higher_parenthesis(Stack * s){
-    Stack auxiliar;
+void delete_higher_parenthesis(Stack * s, Stack * auxiliar){
     StackType c_element;
-
-    init_stack(&auxiliar);
 
     while (!is_empty(s)){
         c_element = pop(s);
@@ -133,9 +130,5 @@ void delete_higher_parenthesis(Stack * s){
             break;
 
         push(&auxiliar, c_element);
-    }
-
-    while (!is_empty(&auxiliar)){
-        push(s, pop(&auxiliar));
     }
 }
