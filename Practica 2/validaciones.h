@@ -67,7 +67,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
     int32_t parentheses_couting = 0;
     int64_t i;
     
-    if (len > 15){
+    if (len >= buffer->capacity){
         printf("ERROR: La cadena que usted ingresó sobrepasa el límite de lectura, ingrese una operación más pequeña.\n");
         return K_SCI_AGAIN;
     }
