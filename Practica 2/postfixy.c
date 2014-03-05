@@ -38,7 +38,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
     int32_t i;
     StackType cur;
     
-    printf("Pila primaria\t\t| Pila secundaria");
+    printf("Iteración\t|Pila primaria\t\t| Pila secundaria");
 
     for (i = 0; i < strlen(buffer); i++ ){
         cur = toupper(buffer[i]);
@@ -72,6 +72,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         }
 
         printf("\n");
+        printf("%d|\t", i);
         print_stack(primary);printf("\t\t");print_stack(auxiliar);
     }
     
