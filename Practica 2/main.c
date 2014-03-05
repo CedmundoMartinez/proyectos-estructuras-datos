@@ -97,9 +97,9 @@ void interactive_assign_variable_values(){
 
     printf("\n");
 
-    for (i=1;i<27;i++){
+    for (i=0;i<27;i++){
         if (get_variable_use()[i]){
-            var_name = i+'@';
+            var_name = i+'A';
 
             printf("%c", var_name);
             secure_prompt("=", buffer, &validate_only_numbers);
@@ -109,7 +109,7 @@ void interactive_assign_variable_values(){
 
     for (i=1;i<27;i++){
         if (get_variable_use()[i]){
-            var_name = i+'@';
+            var_name = i+'A';
 
             printf("%c=%lf\n", var_name, get_variable_value(var_name));
         }
