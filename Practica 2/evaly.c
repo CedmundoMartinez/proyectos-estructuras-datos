@@ -53,24 +53,23 @@ double evaluate (Stack * expression){
 	StackType left;
 	
 	operation = pop(expression);
-	left = pop(expression);
 	right = pop(expression);
+	left = pop(expression);
 
 	Stack tmpval;
 	init_stack(&tmpval);
 
 	while ( !is_empty(expression) ){
 
-		if ( is_supported_operator(operation) && is_variable(left) && is_variable(right) )
-			break;
+		if ( is_supported_operator(operation) )
 
 		push(&tmpval, operation);
-		operation = left;
-		left = right;
-		right = pop(expression);
+		operation = right;
+		right = left;
+		left = pop(expression);
 	}
 
-	printf("Evaluando: %c %c %c", operation, left, right);
+	printf("Evaluando: %c %c %c", left, operation, right);
 	return 0;
 }
 
