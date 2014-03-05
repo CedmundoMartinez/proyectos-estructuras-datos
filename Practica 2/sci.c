@@ -89,7 +89,7 @@ SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b){
 	assert (b->raw_data != NULL);
 
 	if (b->capacity >= a->size){
-		memcpy(b->raw_data, a->raw_data, sizof(char) * a->size);
+		memcpy(b->raw_data, a->raw_data, sizeof(char) * a->size);
 	}else
 		return NULL;
 	
