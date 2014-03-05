@@ -58,6 +58,9 @@ double evaluate (Stack * expression){
 	init_stack(&tmpval);
 	init_stack(&invtmp);
 	
+	print_stack(expression);
+	printf("\n");
+
 	if (expression->top == 0){
 		return get_variable_value(K_RESULT_VARIABLE);
 	}
@@ -100,8 +103,6 @@ double evaluate (Stack * expression){
 	}
 
 	printf("Evaluando: %lf (%c) %c %lf (%c) = %lf\n", a, left, operation, b, right, r);
-	print_stack(expression);
-	printf("\n");
 
 	set_variable_value(K_RESULT_VARIABLE, r);
 
