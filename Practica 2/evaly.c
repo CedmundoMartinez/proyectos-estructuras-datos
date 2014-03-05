@@ -52,10 +52,10 @@ double evaluate (Stack * expression){
 	StackType right;
 	StackType left;
 	
-	operation = pop(expression);
-	right = pop(expression);
 	left = pop(expression);
-	
+	right = pop(expression);
+	operation = pop(expression);
+
 	printf("Segmento: %c %c %c\n", left, operation, right);
 
 	Stack tmpval;
