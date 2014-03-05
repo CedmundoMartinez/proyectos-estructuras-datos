@@ -88,8 +88,12 @@ SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b){
 	assert (b != NULL);
 	assert (b->raw_data != NULL);
 
-	#warning Función copy_buffer aún no implementada.
-	return NULL;
+	if (b->capacity >= a->size){
+		memcpy(b->raw_data, a->raw_data, sizof(char) * a->size);
+	}else
+		return NULL;
+	
+	return b;
 }
 
 int8_t is_buffer_empty(const SecuredBuffer *buffer){
