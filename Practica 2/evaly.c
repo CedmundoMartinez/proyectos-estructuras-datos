@@ -59,10 +59,11 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	while ( !is_empty(expression) 
-		&& !is_supported_operator(operation) 
-		&& !is_variable(left) && !is_variable(right) ){
-		
+	while ( !is_empty(expression) ){
+
+		if ( is_supported_operator(operation) && is_variable(left) && is_variable(righ) )
+			break;
+
 		push(&tmpval, operation);
 		operation = left;
 		left = right;
