@@ -68,6 +68,9 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
             printf("No se ha ingresado un caracter válido.\n");
             return 1;
         }
+
+        printf("\n");
+        print_stack(primary);
     }
     
     while (!is_empty(auxiliar)) {
