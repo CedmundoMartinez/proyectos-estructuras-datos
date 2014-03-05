@@ -82,8 +82,6 @@ double evaluate (Stack * expression){
 	double b = get_variable_value(right);
 	double r = 0;
 
-	printf("Evaluando: %lf %c %lf\n", a, operation, b);
-
 	switch(operation){
 	case '+': r = a + b; break;
 	case '-': r = a - b; break;
@@ -100,6 +98,8 @@ double evaluate (Stack * expression){
 		
 	case '^': r = pow(b, a); break;
 	}
+
+	printf("Evaluando: %lf %c %lf = %lf\n", a, operation, b, r);
 
 	set_variable_value(K_RESULT_VARIABLE, r);
 
