@@ -102,7 +102,7 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
         if ( (increases_prioriy(curbyte) && is_variable(pastbyte)) || 
              (is_variable(curbyte) && decreases_prioriy(pastbyte)) ){
             printf("ERROR: No se permiten las expresiones tipo A(B) o (B)A, puesto que no se soportan las funciones"
-                    " trascendentales ni la multiplicación implícita: %d.\n", i+1);
+                    " trascendentales ni la multiplicación implícita: %ld.\n", i+1);
             return K_SCI_AGAIN;
         }
 
