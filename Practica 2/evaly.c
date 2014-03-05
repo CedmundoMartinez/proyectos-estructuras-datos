@@ -54,7 +54,11 @@ double evaluate (Stack * expression){
 
 	Stack tmpval;
 	init_stack(&tmpval);
-	
+
+	printf("\n");	
+	print_stack(expression);
+	printf("\n");
+
 	if (expression->top == 0){
 		return get_variable_value(K_RESULT_VARIABLE);
 	}
@@ -75,8 +79,6 @@ double evaluate (Stack * expression){
 			break;
 	}
 	printf("Segmento: %c %c %c\n", left, operation, right);
-	print_stack(expression);
-	printf("\n");
 
 	double a = get_variable_value(left);
 	double b = get_variable_value(right);
