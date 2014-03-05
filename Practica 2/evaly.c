@@ -55,6 +55,10 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 	
+	if (expression->top == 0){
+		return get_variable_value(K_RESULT_VARIABLE);
+	}
+
 	left = pop(expression);
 	right = pop(expression);
 	operation = pop(expression);
@@ -97,7 +101,7 @@ double evaluate (Stack * expression){
 	push(expression, K_RESULT_VARIABLE);
 	reverse(&tmpval, expression);
 
-	return 0;
+	return evaluate(expression);
 }
 
 void reverse(Stack * origin, Stack * result){
