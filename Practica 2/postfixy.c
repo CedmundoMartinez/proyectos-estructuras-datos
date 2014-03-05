@@ -122,6 +122,10 @@ int8_t is_high_than_top (Stack * s, StackType op){
     return precedence_oper > precedence_top;
 }
 
+int8_t is_space(StackType op){
+    return op == ' ';
+}
+
 int8_t increases_prioriy (StackType op){
     return op == '(';
 }
