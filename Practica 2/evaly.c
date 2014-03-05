@@ -62,8 +62,8 @@ double evaluate (Stack * expression){
 	StackType cur_sys_var = *(current_system_variable());
 
 	if (expression->top == 0){
-		printf("Finalizado, obteniendo resultado en %c\n", cur_sys_var);
-		return get_variable_value(cur_sys_var);
+		printf("Finalizado, obteniendo resultado en %c\n", cur_sys_var-1);
+		return get_variable_value(cur_sys_var-1);
 	}else{
 		*(current_system_variable()) = cur_sys_var + 1;
 	}
