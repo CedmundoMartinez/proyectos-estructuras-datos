@@ -64,6 +64,7 @@ double evaluate (Stack * expression){
 	operation = pop(expression);
 
 	while (!is_empty(expression)){
+		printf("Segmento: %c %c %c\n", left, operation, right);
 
 		push(&tmpval, left);
 		left = right;
@@ -73,6 +74,7 @@ double evaluate (Stack * expression){
 		if ( is_supported_operator(operation) && is_variable_ext(left) && is_variable_ext(right) )
 			break;
 	}
+	printf("Segmento: %c %c %c\n", left, operation, right);
 
 	double a = get_variable_value(left);
 	double b = get_variable_value(right);
@@ -85,6 +87,7 @@ double evaluate (Stack * expression){
 	
 	case '/': 
 		if (b == 0){
+			printf("\nDivisión entre cero: %d\n", expression->top);
 			return 0;
 		}
 		
@@ -94,6 +97,7 @@ double evaluate (Stack * expression){
 	case '^': r = pow(a, b); break;
 	}
 
+	printf("Evaluando: %c:%lf %c %c:%lf = %lf\n", left, a, operation, right, b, r);
 	set_variable_value(K_RESULT_VARIABLE, r);
 	push(expression, K_RESULT_VARIABLE);
 	reverse(&tmpval, expression);
