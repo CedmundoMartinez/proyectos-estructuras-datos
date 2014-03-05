@@ -55,24 +55,12 @@ double evaluate (Stack * expression){
 	operation = pop(expression);
 	right = pop(expression);
 	left = pop(expression);
-	printf("Segmento: %c %c %c\n", left, operation, right);
 	
+	printf("Segmento: %c %c %c\n", left, operation, right);
+
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	while ( !is_empty(expression) ){
-		printf("Segmento: %c %c %c\n", left, operation, right);
-
-		if ( is_supported_operator(operation) && is_variable(right) && is_variable(left) )
-			break;
-
-		push(&tmpval, operation);
-		operation = right;
-		right = left;
-		left = pop(expression);
-	}
-
-	printf("Evaluando: %c %c %c\n", left, operation, right);
 	return 0;
 }
 
