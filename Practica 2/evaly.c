@@ -55,7 +55,8 @@ double evaluate (Stack * expression){
 	operation = pop(expression);
 	right = pop(expression);
 	left = pop(expression);
-
+	printf("Segmento: %c %c %c\n", left, operation, right);
+	
 	Stack tmpval;
 	init_stack(&tmpval);
 
