@@ -65,7 +65,7 @@ void destroy_buffer(SecuredBuffer *buffer);
 
 // Copies raw data from b to a if capacity of a is major or equals to b.
 // If success, returns pointer to a, else returns 0.
-SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b);
+const SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b);
 
 
 // Returns 1 if SecuredBuffer is empty.

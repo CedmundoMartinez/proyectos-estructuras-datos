@@ -81,7 +81,7 @@ void destroy_buffer(SecuredBuffer *buffer){
 	free (buffer);
 }
 
-SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b){
+const SecuredBuffer *copy_buffer(SecuredBuffer *a, const SecuredBuffer *b){
 	assert (a != NULL);
 	assert (a->raw_data != NULL);
 
