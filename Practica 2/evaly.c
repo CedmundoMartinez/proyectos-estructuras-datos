@@ -60,6 +60,7 @@ double evaluate (Stack * expression){
 	init_stack(&tmpval);
 
 	while ( !is_empty(expression) ){
+		printf("Segmento: %c %c %c\n", left, operation, right);
 
 		if ( is_supported_operator(operation) && is_variable(right) && is_variable(left) )
 			break;
@@ -70,7 +71,7 @@ double evaluate (Stack * expression){
 		left = pop(expression);
 	}
 
-	printf("Evaluando: %c %c %c", left, operation, right);
+	printf("Evaluando: %c %c %c\n", left, operation, right);
 	return 0;
 }
 
