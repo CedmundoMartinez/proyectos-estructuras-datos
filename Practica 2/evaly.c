@@ -62,6 +62,11 @@ double evaluate (Stack * expression){
 	while (!is_empty(expression)){
 		printf("Segmento: %c %c %c\n", left, operation, right);
 
+		push(&tmpval, left);
+		left = right;
+		right = operation;
+		operation = pop(expression);
+
 		if ( is_supported_operator(operation) && is_variable(left) && is_variable(right) )
 			break;
 	}
