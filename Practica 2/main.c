@@ -80,7 +80,7 @@ int main(int argc, char **argv){
 
     interactive_assign_variable_values();
     reverse(&primary, &auxiliar);
-    
+
     //printf("Expresión invertida: ");
     double res = evaluate(&auxiliar);
     print_stack (&auxiliar);

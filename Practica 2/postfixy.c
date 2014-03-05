@@ -42,7 +42,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
 
     for (i = 0; i < strlen(buffer); i++ ){
         cur = toupper(buffer[i]);
-        
+
         if ( is_variable(cur) ){
             push (primary, cur);
         }else if ( increases_prioriy(cur) ) {
@@ -66,6 +66,8 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
                 }
             }
             
+        }else if (is_space(cur)){
+            // Ignorar.
         }else{
             printf("No se ha ingresado un caracter válido.\n");
             return 1;

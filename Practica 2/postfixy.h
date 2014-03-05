@@ -60,6 +60,9 @@ int8_t increases_prioriy (StackType op);
 // Devuelve 1 si el valor es un paréntesis derecho.
 int8_t decreases_prioriy (StackType op);
 
+// Devuelve 1 si el valor es un espacio.
+int8_t is_space(StackType op);
+
 // Quita el paréntesis que esté más arriba de la pila s.
 void push_until_left_parentheses(Stack * s, Stack * auxiliar);
 

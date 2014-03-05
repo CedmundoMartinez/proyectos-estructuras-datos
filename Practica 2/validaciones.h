@@ -99,6 +99,10 @@ static ValidationResult validate_infixed_syntax (const SecuredBuffer *buffer){
             increases_prioriy(curbyte) ? parentheses_couting + 1 : 
             (decreases_prioriy(curbyte) ? parentheses_couting - 1 : parentheses_couting);
 
+        if ( is_space(curbyte) ){
+            continue;
+        }
+
         if ( (increases_prioriy(curbyte) && is_variable(pastbyte)) || 
              (is_variable(curbyte) && decreases_prioriy(pastbyte)) ){
             printf("ERROR: No se permiten las expresiones tipo A(B) o (B)A, puesto que no se soportan las funciones"
