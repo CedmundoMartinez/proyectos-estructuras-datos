@@ -71,7 +71,7 @@ int main(int argc, char **argv){
 
     } while(1);
     
-    printf("Resultado en notación postfija: ");
+    printf("\nResultado en notación postfija: ");
     print_stack (&primary);
     
     // Rellenamos las variables.
@@ -83,7 +83,7 @@ int main(int argc, char **argv){
     
     //printf("Expresión invertida: ");
     print_stack (&auxiliar);
-    printf ("= %lf", evaluate(&auxiliar));
+    printf ("= %lf\n", evaluate(&auxiliar));
 
     destroy_buffer(buffer);
     printf("\n");
