@@ -82,8 +82,9 @@ int main(int argc, char **argv){
     reverse(&primary, &auxiliar);
     
     //printf("Expresión invertida: ");
+    double res = evaluate(&auxiliar);
     print_stack (&auxiliar);
-    printf ("= %lf\n", evaluate(&auxiliar));
+    printf ("= %lf\n", res);
 
     destroy_buffer(buffer);
     printf("\n");
