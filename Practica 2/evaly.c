@@ -99,7 +99,7 @@ double evaluate (Stack * expression){
 	case '^': r = pow(b, a); break;
 	}
 
-	printf("Evaluando: %lf %c %lf = %lf\n", a, operation, b, r);
+	printf("Evaluando: %lf (%c) %c %lf (%c) = %lf\n", a, left, operation, b, right, r);
 
 	set_variable_value(K_RESULT_VARIABLE, r);
 
