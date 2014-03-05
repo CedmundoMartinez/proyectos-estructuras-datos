@@ -51,6 +51,9 @@ int8_t is_supported_operator (StackType op);
 // Devuelve 1 si el valor es una variable (una letra).
 int8_t is_variable (StackType var);
 
+// Devuelve 1 si el valor es una variable (una letra o @).
+int8_t is_variable_ext (StackType var);
+
 // Devuelve 1 si el valor es un paréntesis izquierdo.
 int8_t increases_prioriy (StackType op);
 

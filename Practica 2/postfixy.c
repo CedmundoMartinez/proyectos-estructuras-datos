@@ -103,6 +103,10 @@ int8_t is_variable (StackType var){
     return var >= 'A' && var <= 'Z';
 }
 
+int8_t is_variable_ext (StackType var){
+    return var >= '@' && var <= 'Z';
+}
+
 int8_t is_high_than_top (Stack * s, StackType op){
     int8_t precedence_oper = get_precedence(op);
     int8_t precedence_top = get_precedence(check_top(s));
