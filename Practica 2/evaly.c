@@ -71,7 +71,31 @@ double evaluate (Stack * expression){
 			break;
 	}
 
-	printf("Evaluando: %c %c %c\n", left, operation, right);
+	double a = get_variable_value(left);
+	double b = get_variable_value(right);
+	double r = 0;
+
+	switch(operation){
+	case '+': r = a + b; break;
+	case '-': r = a - b; break;
+	case '*': r = a * b; break;
+	
+	case '/': 
+		if (b == 0){
+			printf("\nDivisión entre cero: %d\n", expression->top);
+			return 0;
+		}
+		
+		r = a / b; 
+		break;
+		
+	case '^': r = pow(a, b); break;
+	}
+
+	printf("Evaluando: %c:%lf %c %c:%lf = %lf\n", left, a, operation, right, b, r);
+	set_variable_value(K_RESULT_VARIABLE, r);
+	push(expression, K_RESULT_VARIABLE);
+	reverse(&tmpval, expression);
 
 	return 0;
 }
