@@ -52,66 +52,21 @@ double evaluate (Stack * expression){
 	StackType right;
 	StackType left;
 	
-	Stack tmpval;
-	Stack invtmp;
-	
-	init_stack(&tmpval);
-	init_stack(&invtmp);
-	
-	print_stack(expression);
-	printf("\n");
-
-	if (expression->top == 0){
-		return get_variable_value(K_RESULT_VARIABLE);
-	}
-
+	operation = pop(expression);
 	left = pop(expression);
 	right = pop(expression);
-	operation = pop(expression);
 
-	while( is_variable(operation) || operation == '@' ){
-		push(&tmpval, left);
+	Stack tmpval;
+	init_stack(&tmpval);
+
+	while ( !is_supported_operation(operation) ){
+		push(&tmpval, operation);
+		operation = left;
 		left = right;
-		right = operation;
-		operation = pop(expression);
+		right = pop(expression);
 	}
 
-	if ( !(is_variable(left) || left == '@') || !(is_variable(right) || right == '@') ){
-		printf("\nSintaxis inválida: %d\n", expression->top);
-		return 0;
-	}
-
-	double a = get_variable_value(left);
-	double b = get_variable_value(right);
-	double r = 0;
-
-	switch(operation){
-	case '+': r = a + b; break;
-	case '-': r = a - b; break;
-	case '*': r = a * b; break;
-	
-	case '/': 
-		if (b == 0){
-			printf("\nDivisión entre cero: %d\n", expression->top);
-			return 0;
-		}
-		
-		r = a / b; 
-		break;
-		
-	case '^': r = pow(b, a); break;
-	}
-
-	printf("Evaluando: %lf (%c) %c %lf (%c) = %lf\n", a, left, operation, b, right, r);
-
-	set_variable_value(K_RESULT_VARIABLE, r);
-
-	push(expression, K_RESULT_VARIABLE);
-
-	reverse(&tmpval, &invtmp);
-	reverse(&invtmp, expression);
-
-	return evaluate(expression);
+	printf("Evaluando: %c %c %c", operation, left, right);
 }
 
 void reverse(Stack * origin, Stack * result){
