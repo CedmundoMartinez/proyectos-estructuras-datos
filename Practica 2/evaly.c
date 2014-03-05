@@ -59,7 +59,7 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	while ( !is_supported_operation(operation) ){
+	while ( !is_supported_operator(operation) ){
 		push(&tmpval, operation);
 		operation = left;
 		left = right;
