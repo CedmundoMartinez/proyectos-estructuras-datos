@@ -47,7 +47,7 @@
 //  A*B/C+D
 //  ABCD*/+
 
-double evaluate (Stack * expression){
+long double evaluate (Stack * expression){
 	StackType operation;
 	StackType right;
 	StackType left;
@@ -55,14 +55,14 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	printf("\n");	
-	print_stack(expression);
-	printf("\n");
+	//printf("\n");	
+	//print_stack(expression);
+	//printf("\n");
 
 	StackType cur_sys_var = *(current_system_variable());
 
 	if (expression->top == 0){
-		printf("Finalizado, obteniendo resultado en %c\n", cur_sys_var-1);
+		//printf("Finalizado, obteniendo resultado en %c\n", cur_sys_var-1);
 		return get_variable_value(cur_sys_var-1);
 	}else{
 		*(current_system_variable()) = cur_sys_var + 1;
@@ -73,7 +73,7 @@ double evaluate (Stack * expression){
 	operation = pop(expression);
 
 	while (!is_empty(expression)){
-		printf("Segmento: %c %c %c\n", left, operation, right);
+		//printf("Segmento: %c %c %c\n", left, operation, right);
 		if ( is_supported_operator(operation) && is_variable_ext(left) && is_variable_ext(right) )
 			break;
 
@@ -82,11 +82,11 @@ double evaluate (Stack * expression){
 		right = operation;
 		operation = pop(expression);
 	}
-	printf("Encontrado: %c %c %c\n", left, operation, right);
+	//printf("Encontrado: %c %c %c\n", left, operation, right);
 
-	double a = get_variable_value(left);
-	double b = get_variable_value(right);
-	double r = 0;
+	long double a = get_variable_value(left);
+	long double b = get_variable_value(right);
+	long double r = 0;
 
 	switch(operation){
 	case '+': r = a + b; break;
@@ -95,7 +95,7 @@ double evaluate (Stack * expression){
 	
 	case '/': 
 		if (b == 0){
-			printf("\nDivisión entre cero: %d\n", expression->top);
+			//printf("\nDivisión entre cero: %d\n", expression->top);
 			return 0;
 		}
 		
@@ -105,7 +105,7 @@ double evaluate (Stack * expression){
 	case '^': r = pow(a, b); break;
 	}
 
-	printf("Evaluando: %c:%lf %c %c:%lf = %c:%lf\n", left, a, operation, right, b, cur_sys_var,r);
+	printf("Evaluando: %c:%llf %c %c:%llf = %c:%llf\n", left, a, operation, right, b, cur_sys_var,r);
 	set_variable_value(cur_sys_var, r);
 	push(expression, cur_sys_var);
 	reverse(&tmpval, expression);
@@ -119,7 +119,7 @@ void reverse(Stack * origin, Stack * result){
 	}
 }
 
-double get_variable_value(StackType variable){
+long double get_variable_value(StackType variable){
 
 	if ( is_in_program_space(variable) )
 		return get_program_variables()[ (int32_t) variable - 'a'];
@@ -127,7 +127,7 @@ double get_variable_value(StackType variable){
 		return get_user_variables()[ (int32_t) variable - 'A'];
 }
 
-void set_variable_value(StackType variable, double value){
+void set_variable_value(StackType variable, long double value){
 	
 	if ( is_in_program_space(variable) )
 		get_program_variables()[ (int32_t) variable - 'a'] = value;
@@ -164,8 +164,8 @@ int8_t * get_variable_use(){
 	return used;
 }
 
-double * get_user_variables(){
-	static double user_variables [] = {
+long double * get_user_variables(){
+	static long double user_variables [] = {
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -175,8 +175,8 @@ double * get_user_variables(){
 	return user_variables;
 }
 
-double * get_program_variables(){
-	static double program_variables [] = {
+long double * get_program_variables(){
+	static long double program_variables [] = {
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,

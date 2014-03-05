@@ -32,14 +32,14 @@
 
 StackType * current_system_variable();
 
-double get_variable_value(StackType variable);
-void set_variable_value(StackType variable, double value);
+long double get_variable_value(StackType variable);
+void set_variable_value(StackType variable, long double value);
 
 void reverse(Stack * origin, Stack * result);
-double evaluate (Stack * expression);
+long double evaluate (Stack * expression);
 
-double * get_user_variables();
-double * get_program_variables();
+long double * get_user_variables();
+long double * get_program_variables();
 
 void fill_used(Stack * s);
 int8_t * get_variable_use();
