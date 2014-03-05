@@ -76,7 +76,7 @@ int main(int argc, char **argv){
     
     // Rellenamos las variables.
     fill_used(&primary);
-    printf("\n===== Evaluando expresiones =====\n");
+    printf("\n\n===== Evaluando expresiones =====\n");
 
     interactive_assign_variable_values();
     reverse(&primary, &auxiliar);
@@ -108,13 +108,13 @@ void interactive_assign_variable_values(){
         }
     }
 
-    for (i=0;i<27;i++){
+    /*for (i=0;i<27;i++){
         if (get_variable_use()[i]){
             var_name = i+'A';
 
             printf("%c=%lf\n", var_name, get_variable_value(var_name));
         }
-    }
+    }*/
 
     destroy_buffer(buffer);
 }
