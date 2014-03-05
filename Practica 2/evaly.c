@@ -61,7 +61,7 @@ double evaluate (Stack * expression){
 
 	while ( !is_empty(expression) ){
 
-		if ( is_supported_operator(operation) && is_variable(left) && is_variable(righ) )
+		if ( is_supported_operator(operation) && is_variable(left) && is_variable(right) )
 			break;
 
 		push(&tmpval, operation);
