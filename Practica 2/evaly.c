@@ -96,7 +96,7 @@ double evaluate (Stack * expression){
 		r = a / b; 
 		break;
 		
-	case '^': r = pow(a, b); break;
+	case '^': r = pow(b, a); break;
 	}
 
 	set_variable_value(K_RESULT_VARIABLE, r);
