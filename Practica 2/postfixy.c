@@ -104,7 +104,7 @@ int8_t is_variable (StackType var){
 }
 
 int8_t is_variable_ext (StackType var){
-    return var >= '@' && var <= 'Z';
+    return (var >= 'A' && var <= 'Z') || (var >= 'a' && var <= 'z');
 }
 
 int8_t is_high_than_top (Stack * s, StackType op){
