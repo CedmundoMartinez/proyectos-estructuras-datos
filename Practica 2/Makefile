@@ -35,7 +35,7 @@ EXECUTABLE=main
 update:
 	git pull
 
-all: update $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(EXECUTABLE)
 	
 $(EXECUTABLE): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
