@@ -59,7 +59,7 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	while ( !is_supported_operator(operation) ){
+	while ( !is_empty(expression) && !is_variable(left) && !is_variable(right) ){
 		push(&tmpval, operation);
 		operation = left;
 		left = right;
@@ -67,6 +67,7 @@ double evaluate (Stack * expression){
 	}
 
 	printf("Evaluando: %c %c %c", operation, left, right);
+	return 0;
 }
 
 void reverse(Stack * origin, Stack * result){
