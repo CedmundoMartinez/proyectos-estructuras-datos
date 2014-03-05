@@ -82,7 +82,7 @@ double evaluate (Stack * expression){
 		right = operation;
 		operation = pop(expression);
 	}
-	printf("Segmento: %c %c %c\n", left, operation, right);
+	printf("Encontrado: %c %c %c\n", left, operation, right);
 
 	double a = get_variable_value(left);
 	double b = get_variable_value(right);
