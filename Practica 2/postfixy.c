@@ -70,7 +70,7 @@ int8_t perform_postfixed (StackType * buffer, Stack * primary, Stack * auxiliar)
         }
 
         printf("\n");
-        print_stack(primary);
+        print_stack(primary);printf("\t\t");print_stack(auxiliar);
     }
     
     while (!is_empty(auxiliar)) {
