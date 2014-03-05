@@ -105,7 +105,7 @@ double evaluate (Stack * expression){
 	case '^': r = pow(a, b); break;
 	}
 
-	printf("Evaluando: %c:%lf %c %c:%lf = %lf\n", left, a, operation, right, b, r);
+	printf("Evaluando: %c:%lf %c %c:%lf = %c:%lf\n", left, a, operation, right, b, cur_sys_var,r);
 	set_variable_value(cur_sys_var, r);
 	push(expression, cur_sys_var);
 	reverse(&tmpval, expression);

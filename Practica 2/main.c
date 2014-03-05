@@ -107,7 +107,7 @@ void interactive_assign_variable_values(){
         }
     }
 
-    for (i=1;i<27;i++){
+    for (i=0;i<27;i++){
         if (get_variable_use()[i]){
             var_name = i+'A';
 
