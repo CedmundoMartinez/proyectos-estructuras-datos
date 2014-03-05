@@ -55,9 +55,9 @@ double evaluate (Stack * expression){
 	Stack tmpval;
 	init_stack(&tmpval);
 
-	//printf("\n");	
-	//print_stack(expression);
-	//printf("\n");
+	printf("\n");	
+	print_stack(expression);
+	printf("\n");
 
 	StackType cur_sys_var = *(current_system_variable());
 
