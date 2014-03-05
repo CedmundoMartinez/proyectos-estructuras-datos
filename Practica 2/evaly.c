@@ -84,8 +84,8 @@ double evaluate (Stack * expression){
 	}
 	//printf("Encontrado: %c %c %c\n", left, operation, right);
 
-	double a = get_variable_value(left);
-	double b = get_variable_value(right);
+	double a = get_variable_value(right);
+	double b = get_variable_value(left);
 	double r = 0;
 
 	switch(operation){
