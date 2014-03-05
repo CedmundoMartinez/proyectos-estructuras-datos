@@ -59,8 +59,12 @@ double evaluate (Stack * expression){
 	print_stack(expression);
 	printf("\n");
 
+	StackType cur_sys_var = *(current_system_variable());
+
 	if (expression->top == 0){
-		return get_variable_value(K_RESULT_VARIABLE);
+		return get_variable_value(cur_sys_var);
+	}else{
+		*(current_system_variable()) = cur_sys_var + 1;
 	}
 
 	left = pop(expression);
@@ -102,8 +106,8 @@ double evaluate (Stack * expression){
 	}
 
 	printf("Evaluando: %c:%lf %c %c:%lf = %lf\n", left, a, operation, right, b, r);
-	set_variable_value(K_RESULT_VARIABLE, r);
-	push(expression, K_RESULT_VARIABLE);
+	set_variable_value(cur_sys_var, r);
+	push(expression, cur_sys_var);
 	reverse(&tmpval, expression);
 
 	return evaluate(expression);
@@ -116,11 +120,19 @@ void reverse(Stack * origin, Stack * result){
 }
 
 double get_variable_value(StackType variable){
-	return get_variables()[ (int32_t) variable - '@'];
+
+	if ( is_in_program_space(variable) )
+		return get_program_variables()[ (int32_t) variable - 'a'];
+	else
+		return get_user_variables()[ (int32_t) variable - 'A'];
 }
 
 void set_variable_value(StackType variable, double value){
-	get_variables()[ (int32_t) variable - '@'] = value;
+	
+	if ( is_in_program_space(variable) )
+		get_program_variables()[ (int32_t) variable - 'a'] = value;
+	else
+		get_user_variables()[ (int32_t) variable - 'A'] = value;
 }
 
 void fill_used(Stack * s){
@@ -131,9 +143,13 @@ void fill_used(Stack * s){
 		a = s->contents[i];
 
 		if (is_variable(a)){
-			get_variable_use()[ (int32_t) a - '@'] = 1;
+			get_variable_use()[ (int32_t) a - 'A'] = 1;
 		}
 	}
+}
+
+int8_t is_in_program_space (StackType var){
+	return var >= 'a' && var <= 'z';
 }
 
 int8_t * get_variable_use(){
@@ -148,13 +164,29 @@ int8_t * get_variable_use(){
 	return used;
 }
 
-double * get_variables(){
-	static double variables [] = {
+double * get_user_variables(){
+	static double user_variables [] = {
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-		0.0, 0.0 };
+		0.,  };
 
-	return variables;
+	return user_variables;
+}
+
+double * get_program_variables(){
+	static double program_variables [] = {
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0 };
+
+	return program_variables;
+}
+
+StackType * current_system_variable(){
+	static StackType cur_sys_var = 'a';
+	return &cur_sys_var;
 }
