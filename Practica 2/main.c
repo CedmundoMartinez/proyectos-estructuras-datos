@@ -83,7 +83,7 @@ int main(int argc, char **argv){
     
     //printf("Expresión invertida: ");
     print_stack (&auxiliar);
-    printf ("= %llf", evaluate(&auxiliar));
+    printf ("= %lf", evaluate(&auxiliar));
 
     destroy_buffer(buffer);
     printf("\n");
@@ -111,7 +111,7 @@ void interactive_assign_variable_values(){
         if (get_variable_use()[i]){
             var_name = i+'A';
 
-            printf("%c=%llf\n", var_name, get_variable_value(var_name));
+            printf("%c=%lf\n", var_name, get_variable_value(var_name));
         }
     }
 
