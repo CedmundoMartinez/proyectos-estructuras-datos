@@ -74,6 +74,7 @@ double evaluate (Stack * expression){
 		if ( is_supported_operator(operation) && is_variable(left) && is_variable(right) )
 			break;
 	}
+	printf("Segmento: %c %c %c\n", left, operation, right);
 
 	double a = get_variable_value(left);
 	double b = get_variable_value(right);
