@@ -32,7 +32,10 @@ SOURCES=main.c postfixy.c sci.c stacky.c evaly.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=main
 
-all: $(SOURCES) $(EXECUTABLE)
+update:
+	git pull
+
+all: update $(SOURCES) $(EXECUTABLE)
 	
 $(EXECUTABLE): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
