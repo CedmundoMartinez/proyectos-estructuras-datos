@@ -29,8 +29,8 @@ Element *whois_back(Queue * q);
 void queue_element (Queue *q, Element * e);
 Element * dequeue_element (Queue * q);
 
+int32_t search(Queue *q, ElementType value);
 void deep_free (Queue * q);
-
 void print_queue(Queue *q);
 
 int main(){
@@ -63,10 +63,10 @@ int main(){
         printf ("\n================\n\n");
 
         printf("Menú principal.\n0 - Salir.\n1 - Poner caracter en cola.\n2 - Quitar caracter de cola.\n"
-                "3 - Imprimir cola.\nIngrese una opción (0-3): ");
+                "3 - Imprimir cola.\n4 - Buscar.\nIngrese una opción (0-4): ");
         gets(input);
         if (strlen(input) > 1 || !isdigit(input[0])){
-            printf("Debe ingresar un número entero de entre 0 y 3.\n");
+            printf("Debe ingresar un número entero de entre 0 y 4.\n");
             continue;
         }
         option = atoi(input);
@@ -106,6 +106,25 @@ int main(){
                 break;
             case 3:
                 print_queue (q);
+                break;
+            case 4:
+                printf("Ingrese un caracter: ");
+                
+                gets(input);
+                if (strlen(input) > 1){
+                    printf("Debe ingresar solamente un (1) caracter.\n");
+                    continue;
+                }
+                elc = input[0];
+                int32_t index = search (q, elc);
+                
+                if ( index == -2){
+                    printf(">> La cola está vacía.\n");
+                }else if (index == -1){
+                    printf(">> Valor no encontrado.\n");
+                }else {
+                    printf(">> Valor encontrado en el índice %d.\n", index);
+                }
                 break;
             default:  
                   printf("%d no es una opción válida.\n\n", option);
@@ -166,7 +185,7 @@ void queue_element (Queue *q, Element * e){
 Element * dequeue_element (Queue * q){
     Element * last = q->back;
     Element * aux = q->front;
-    int i;
+    int32_t i;
 
     for ( i=0;i<q->length-2;i++ ){
         aux = aux->next; 
@@ -187,6 +206,26 @@ void deep_free (Queue * q){
     }
     
     free(q);
+}
+
+int32_t search(Queue *q, ElementType value) {
+     Element * aux = q->front;
+    int32_t i;
+
+    if (is_empty(q)){
+        printf("La cola está vacía.\n");
+        return  -2;
+    }
+    
+    for (i=0;i<q->length;i++){
+        if (aux->inner_value == value){
+            return i;
+        }
+            
+        aux = aux->next;
+    }
+    
+    return -1;
 }
 
 void print_queue(Queue *q) {
