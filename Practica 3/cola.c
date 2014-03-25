@@ -166,7 +166,7 @@ void queue_element (Queue *q, Element * e){
 Element * dequeue_element (Queue * q){
     Element * last = q->back;
     Element * aux = q->front;
-    int i;
+    int32_t i;
 
     for ( i=0;i<q->length-2;i++ ){
         aux = aux->next; 
