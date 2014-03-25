@@ -191,7 +191,7 @@ void deep_free (Queue * q){
 
 void print_queue(Queue *q) {
     Element * aux = q->front;
-    int i;
+    int32_t i;
 
     printf("\n================\n");
 

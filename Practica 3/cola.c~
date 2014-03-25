@@ -76,13 +76,12 @@ int main(){
                 break;
             case 1:
                 printf("Ingrese un caracter: ");
-                do{
-                    gets(input);
-                    if (strlen(input) > 1){
-                        printf("Debe ingresar solamente un (1) caracter.\n");
-                        continue;
-                    }
-                } while (0);
+                
+                gets(input);
+                if (strlen(input) > 1){
+                    printf("Debe ingresar solamente un (1) caracter.\n");
+                    continue;
+                }
                 elc = input[0];
                 
                 e = alloc_element();
