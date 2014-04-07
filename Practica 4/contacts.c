@@ -81,7 +81,7 @@ void insert_contact (ContactBook * list, Contact * new_contact){
 
     if ( current_pos != NULL ) {
         current_name = current_pos->content->name;
-        new_name = new_contact->content->name;
+        new_name = new_contact->name;
 
         if ( is_major_string (current_name, new_name) ){
         
