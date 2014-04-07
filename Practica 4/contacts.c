@@ -30,14 +30,14 @@ char * alloc_string (size_t size){
 }
 
 Contact * alloc_contact (){
-    Contact * ns = (Contact *) malloc (sizeof(Contact));
+    ListNode * ns = (ListNode *) malloc (sizeof(ListNode));
     if (ns != NULL){
-        memset(ns, 0, sizeof(Contact));
+        memset(ns, 0, sizeof(ListNode));
     }
     return ns;
 }
 
-DoubleLinkList * alloc_contacts_book (){
+ContactBook * alloc_contacts_book (){
     DoubleLinkList * ns = (DoubleLinkList *) malloc (sizeof(DoubleLinkList));
     if (ns != NULL){
         memset(ns, 0, sizeof(DoubleLinkList));
@@ -67,7 +67,8 @@ int8_t is_major_string(char * a, char * b){
 
 void insert_contact (ContactBook * list, Contact * new_contact){
     Contact * current = list->cursor;
-
+    printf ("Current: 0x%p", current);
+    
     if (current != NULL){
         char * cur_name = new_contact->name;
         char * new_name = current->name;
@@ -106,7 +107,7 @@ void insert_contact (ContactBook * list, Contact * new_contact){
 
         }
     }
-    
+
     list->cursor = new_contact;
 }
 
