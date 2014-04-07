@@ -76,11 +76,11 @@ int8_t is_major_string(char * a, char * b){
 }
 
 void insert_contact (ContactBook * list, Contact * new_contact){
-    ListNode * current_pos = list->cursor;
+    ListNode * current_contact = list->cursor;
     char * current_name, * new_name;
 
-    if ( current_pos != NULL ) {
-        current_name = current_pos->content->name;
+    if ( current_contact != NULL ) {
+        current_name = current_contact->name;
         new_name = new_contact->name;
 
         if ( is_major_string (current_name, new_name) ){
