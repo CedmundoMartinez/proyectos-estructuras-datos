@@ -110,11 +110,79 @@ void insert_contact (ContactBook * book, Contact * new_contact){
     book->cursor = new_contact;
 }
 
+Contact * search_contact_by_name (ContactBook * book, const char * name){
+    Contact * current = book->cursor;
+    
+    if (current != NULL){
+
+        if ( strcmpi(current->name, name) == 0 ) {
+            return current;
+        }else if ( is_major_string(current->name, name) ){
+            Contact * next = current->next;
+
+            while ( current->next != NULL) {
+                if ( strcmpi(current->name, name) == 0 )
+                    return current;
+
+                current = current->next;
+            }
+
+        } else {
+            Contact * prev = current->prev;
+
+            while ( current->prev != NULL) {
+                if ( strcmpi(current->name, name) == 0 )
+                    return current;
+
+                current = current->prev;
+            }
+
+        }
+    }
+
+    return NULL;
+}
+
+void delete_contact (ContactBook * book, Contact * contact){
+    contact->next->prev = contact->prev;
+    contact->prev->next = contact->next;
+
+    free(contact);
+}
+
+int32_t get_contact_index(Contact * contact){
+    Contact * first_contact = contact;
+    Contact * counting;
+
+    if (first_contact == NULL){
+        return -1;
+    }
+
+    while ( first_contact->prev != NULL ){
+        first_contact = first_contact->prev;
+    }
+
+    int32_t index = 0;
+
+    counting = first_contact;
+    for (index = 0; counting != NULL; index += 1 || (counting = counting->next) ){
+        if (counting == contact){
+            return index;
+        }
+    }
+
+    return -1;
+}
+
 void print_contact_details (Contact * contacty){
     printf("Nombre: %s\n", contacty->name);
     printf("Telefono: %s\n", contacty->phone_number);
     printf("Email: %s\n", contacty->email);
     printf("Edad: %d\n", contacty->age);
+}
+
+void print_contact_file (FILE *file, Contact * c){
+    fprintf(file, "%s %s %s %d", c->phone_number, c->name, c->email, c->age);
 }
 
 void print_contact_preview (int32_t idx, Contact * c){
@@ -142,7 +210,7 @@ void print_contacts_book (ContactBook * book){
         printing = printing->next;
     }
 
-    printf("\n\n");
+    printf("\n");
 }
 
 int8_t read_string_field ( char ** field, FILE * stream ){
@@ -173,23 +241,14 @@ int8_t read_string_field ( char ** field, FILE * stream ){
     return 0;
 }
 
-int main(int argc, char ** argv){
-    
+int8_t read_contacts(ContactBook * book, FILE * stored_contacts){
     Contact * new_contact;
-    ContactBook * contacts_book;
-
-    FILE * stored_contacts;
     char * tmp_number;
-    int32_t errnum;
 
-    stored_contacts = fopen("contacts.txt", "r");
-    contacts_book = alloc_contacts_book();
+    while ( !(feof(stored_contacts) || ferror(stored_contacts)) ){
+        new_contact = alloc_contact ();
 
-    if ( stored_contacts != NULL){
-
-        while ( !(feof(stored_contacts) || ferror(stored_contacts)) ){
-            new_contact = alloc_contact ();
-
+        if ( new_contact != NULL ){
             read_string_field( &(new_contact->phone_number), stored_contacts );
             read_string_field( &(new_contact->name), stored_contacts );
             read_string_field( &(new_contact->email), stored_contacts );
@@ -201,13 +260,68 @@ int main(int argc, char ** argv){
                 tmp_number = NULL;
             }
 
-            if ( new_contact != NULL ){
-                insert_contact(contacts_book, new_contact);
-            }
+            insert_contact(book, new_contact);
         }
+    }
 
-        if (!ferror(stored_contacts)){
+    if (ferror(stored_contacts))
+        return 0;
+
+    return 1;
+}
+
+int8_t save_contacts(ContactBook * book, FILE * contacts_store){
+    Contact * first_contact = book->cursor;
+    Contact * printing;
+
+    if (first_contact == NULL){
+        return 0;
+    }
+
+    while ( first_contact->prev != NULL ){
+        first_contact = first_contact->prev;
+    }
+
+    printing = first_contact;
+    while( printing != NULL){
+        print_contact_file(contacts_store, printing);
+        printing = printing->next;
+    }
+}
+
+int main(int argc, char ** argv){
+    
+    ContactBook * contacts_book;
+    FILE * stored_contacts;
+
+    int32_t errnum, option;
+    int8_t success_op;
+
+    stored_contacts = fopen("contacts.txt", "r");
+    contacts_book = alloc_contacts_book();
+
+    success_op = read_contacts(contacts_book, stored_contacts);
+    fclose(stored_contacts);
+
+    if ( stored_contacts != NULL){
+        if (success_op){
             print_contacts_book(contacts_book);
+
+            do{
+                printf( "=== Menú principal === \n"
+                        "0. Salir sin guardar.\n"
+                        "1. Guardar y salir.\n"
+                        "3. Guardar.\n"
+                        "4. Imprimir libreta de contactos.\n"
+                        "5. Buscar un contacto.\n"
+                        "6. Ver detalles de un contacto.\n"
+                        "7. Actualizar un contacto.\n"
+                        "8. Agregar un contacto.\n"
+                        "9. Eliminar un contacto.\n" );
+                printf("Ingrese una opción para continuar: ");
+                scanf("%d", &option);
+            }while(option != 0);
+
             return 0;
         }
     }
