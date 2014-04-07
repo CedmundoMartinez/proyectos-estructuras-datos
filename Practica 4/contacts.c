@@ -3,8 +3,7 @@
 #include <stdint.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-extern int32_t errno ;
+#include <errno.h>
 
 typedef struct _ListType {
     char * name;
