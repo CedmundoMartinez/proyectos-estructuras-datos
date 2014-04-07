@@ -66,10 +66,7 @@ int8_t is_major_string(char * a, char * b){
 }
 
 void insert_contact (ContactBook * book, Contact * new_contact){
-    printf ("Contact Book: 0x%p\n", book);
-    
     Contact * current = book->cursor;
-    printf ("Current: 0x%p\n", current);
     
     if (current != NULL){
         char * cur_name = new_contact->name;
@@ -137,7 +134,7 @@ void print_contacts_book (ContactBook * book){
     }
 
     printf("Libreta de contactos: \n");
-    int32_t index;
+    int32_t index = 0;
 
     printing = first_contact;
     while( printing != NULL){
@@ -205,9 +202,7 @@ int main(int argc, char ** argv){
             }
 
             if ( new_contact != NULL ){
-                print_contact_details(new_contact);
                 insert_contact(contacts_book, new_contact);
-                printf("========================\n");
             }
         }
 
