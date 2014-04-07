@@ -64,8 +64,8 @@ int8_t is_major_string(char * a, char * b){
     char * major, minor;
 
     major = alen > blen ? a : b;
-    mlen = alen > blen ? alen : blen;
     minor = blen > alen ? a : b;
+    mlen = alen > blen ? alen : blen;
 
     for( i = 0; i < mlen; i++ ){
         if (minor[i] > major[i])
@@ -77,11 +77,11 @@ int8_t is_major_string(char * a, char * b){
 
 void insert_contact (ContactBook * list, Contact * new_contact){
     ListNode * current_pos = list->cursor;
-    char * current_name, new_name;
+    char * current_name, * new_name;
 
     if ( current_pos != NULL ) {
-        current_name = current_pos->content;
-        new_name = new_contact->new_contact;
+        current_name = current_pos->content->name;
+        new_name = new_contact->content->name;
 
         if ( is_major_string (current_name, new_name) ){
         
