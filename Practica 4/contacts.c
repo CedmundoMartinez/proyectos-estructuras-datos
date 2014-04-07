@@ -289,6 +289,10 @@ int8_t save_contacts(ContactBook * book, FILE * contacts_store){
     }
 }
 
+void perform_operation (int32_t operation, ContactBook * contacts_book) {
+    // Menues y demás...
+}
+
 int main(int argc, char ** argv){
     
     ContactBook * contacts_book;
@@ -311,16 +315,24 @@ int main(int argc, char ** argv){
                 printf( "=== Menú principal === \n"
                         "0. Salir sin guardar.\n"
                         "1. Guardar y salir.\n"
-                        "3. Guardar.\n"
-                        "4. Imprimir libreta de contactos.\n"
-                        "5. Buscar un contacto.\n"
-                        "6. Ver detalles de un contacto.\n"
-                        "7. Actualizar un contacto.\n"
-                        "8. Agregar un contacto.\n"
-                        "9. Eliminar un contacto.\n" );
+                        "2. Guardar.\n"
+                        "3. Imprimir libreta de contactos.\n"
+                        "4. Buscar un contacto.\n"
+                        "5. Ver detalles de un contacto.\n"
+                        "6. Actualizar un contacto.\n"
+                        "7. Agregar un contacto.\n"
+                        "8. Eliminar un contacto.\n" );
                 printf("Ingrese una opción para continuar: ");
                 scanf("%d", &option);
-            }while(option != 0);
+                
+                perform_operation(option, contacts_book);
+            } while(option >= 2);
+
+            if ( option == 1) {
+                stored_contacts = fopen("contacts.txt", "w");
+                save_contacts(contacts_book, stored_contacts);
+                fclose(stored_contacts);
+            }
 
             return 0;
         }
