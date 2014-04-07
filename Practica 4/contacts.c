@@ -46,8 +46,6 @@ int8_t read_string_field ( char ** field, FILE * stream ){
 
     while ( !(feof(stream) || ferror(stream)) ){
         c = fgetc(stream);
-
-        printf("%c", c);
         
         if (c == '\n' || c == ' ' || c == ';' || c == '|'){
             end_pos = ftell(stream);
@@ -57,12 +55,12 @@ int8_t read_string_field ( char ** field, FILE * stream ){
             if ( *field == NULL )
                 return 2;
 
-            fseek(stream, start_pos, SEEK_CUR);
+            fseek(stream, start_pos, SEEK_SET);
 
             if (fgets(*field, tok_size, stream) != *field)
                 return 0;
 
-            fseek(stream, end_pos + 1, SEEK_CUR);
+            fseek(stream, end_pos + 1, SEEK_SET);
             return 1;
         }
     }
