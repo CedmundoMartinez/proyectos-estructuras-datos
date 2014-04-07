@@ -58,16 +58,18 @@ void init_list_node(ListNode * node, ListType content){
 }
 
 int8_t is_major_string(char * a, char * b){
-    int32_t alen = strlen(a);
-    int32_t blen = strlen(b);
-    int32_t i, mlen;
     char * major, minor;
+    int32_t i;
 
-    major = alen > blen ? a : b;
-    minor = blen > alen ? a : b;
-    mlen = alen > blen ? alen : blen;
+    if ( strlen(a) > strlen(b) ){
+        major = a;
+        minor = b;
+    }else{
+        major = b;
+        minor = a;
+    }
 
-    for( i = 0; i < mlen; i++ ){
+    for( i = 0; i < strlen(minor); i++ ){
         if (minor[i] > major[i])
             return 1;
     }
@@ -76,20 +78,6 @@ int8_t is_major_string(char * a, char * b){
 }
 
 void insert_contact (ContactBook * list, Contact * new_contact){
-    ListNode * current_contact = list->cursor;
-    char * current_name, * new_name;
-
-    if ( current_contact != NULL ) {
-        current_name = current_contact->name;
-        new_name = new_contact->name;
-
-        if ( is_major_string (current_name, new_name) ){
-        
-        }else{
-        
-        }
-    }
-
     list->cursor = new_contact;
 }
 
