@@ -22,7 +22,7 @@ typedef struct _ListNode {
 } ListNode;
 
 char * alloc_string (size_t size){
-    char * ns = (char *) malloc (size * sizeof(char))
+    char * ns = (char *) malloc (size * sizeof(char));
     if (ns != NULL){
         memset(ns, 0, size);
     }
@@ -56,12 +56,12 @@ int8_t read_string_field ( char ** field, FILE * stream ){
             if ( *field == NULL )
                 return 2;
 
-            fseek(stream, start_pos);
+            fseek(stream, start_pos, SEEK_CUR);
 
             if (fgets(*field, tok_size, stream) != *field)
                 return 0;
 
-            fseek(stream, end_pos + 1);
+            fseek(stream, end_pos + 1, SEEK_CUR);
             return 1;
         }
     }
