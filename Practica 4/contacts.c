@@ -79,8 +79,7 @@ void insert_contact (ContactBook * list, Contact * new_contact){
         }
 
         before_insert = next;
-        curr
-        ent->next = new_contact;
+        current->next = new_contact;
         new_contact->prev = current;
         new_contact->next = before_insert;
 
