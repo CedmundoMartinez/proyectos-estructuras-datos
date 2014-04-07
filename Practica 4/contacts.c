@@ -5,20 +5,16 @@
 #include <stdlib.h>
 #include <errno.h>
 
-typedef struct _ListType {
+typedef struct _ListNode {
     char * name;
     char * phone_number;
     char * email;
     int8_t age;
-} ListType;
-typedef ListType Contact;
-
-typedef struct _ListNode {
-    ListType content;
 
     struct _ListNode * next;
     struct _ListNode * prev;
 } ListNode;
+typedef ListNode Contact;
 
 typedef struct _DoubleLinkList {
     ListNode * cursor;
@@ -34,18 +30,14 @@ char * alloc_string (size_t size){
 }
 
 Contact * alloc_contact (){
-    return (Contact *) malloc (sizeof(Contact));
-}
-
-ListNode * alloc_list_node (){
-    ListNode * ns = (ListNode *) malloc (sizeof(ListNode));
+    Contact * ns = (Contact *) malloc (sizeof(Contact));
     if (ns != NULL){
-        memset(ns, 0, sizeof(ListNode));
+        memset(ns, 0, sizeof(Contact));
     }
     return ns;
 }
 
-DoubleLinkList * alloc_double_link_list (){
+DoubleLinkList * alloc_contacts_book (){
     DoubleLinkList * ns = (DoubleLinkList *) malloc (sizeof(DoubleLinkList));
     if (ns != NULL){
         memset(ns, 0, sizeof(DoubleLinkList));
@@ -53,24 +45,20 @@ DoubleLinkList * alloc_double_link_list (){
     return ns;
 }
 
-void init_list_node(ListNode * node, ListType content){
-    node->content = content;
-}
-
 int8_t is_major_string(char * a, char * b){
-    char * major, minor;
+    char * str_major, * str_minor;
     int32_t i;
 
     if ( strlen(a) > strlen(b) ){
-        major = a;
-        minor = b;
+        str_major = a;
+        str_minor = b;
     }else{
-        major = b;
-        minor = a;
+        str_major = b;
+        str_minor = a;
     }
 
-    for( i = 0; i < strlen(minor); i++ ){
-        if (minor[i] > major[i])
+    for( i = 0; i < strlen(str_minor); i++ ){
+        if (str_minor[i] > str_major[i])
             return 1;
     }
 
@@ -129,7 +117,7 @@ int main(int argc, char ** argv){
     int32_t errnum;
 
     stored_contacts = fopen("contacts.txt", "r");
-    contacts_book = alloc_double_link_list();
+    contacts_book = alloc_contacts_book();
 
     if ( stored_contacts != NULL){
 
