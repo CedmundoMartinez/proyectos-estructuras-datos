@@ -110,18 +110,18 @@ void insert_contact (ContactBook * book, Contact * new_contact){
     book->cursor = new_contact;
 }
 
-Contact * search_contact_by_name (ContactBook * book, const char * name){
+Contact * search_contact_by_name (ContactBook * book, char * name){
     Contact * current = book->cursor;
     
     if (current != NULL){
 
-        if ( strcmpi(current->name, name) == 0 ) {
+        if ( strcmp(current->name, name) == 0 ) {
             return current;
         }else if ( is_major_string(current->name, name) ){
             Contact * next = current->next;
 
             while ( current->next != NULL) {
-                if ( strcmpi(current->name, name) == 0 )
+                if ( strcmp(current->name, name) == 0 )
                     return current;
 
                 current = current->next;
@@ -131,7 +131,7 @@ Contact * search_contact_by_name (ContactBook * book, const char * name){
             Contact * prev = current->prev;
 
             while ( current->prev != NULL) {
-                if ( strcmpi(current->name, name) == 0 )
+                if ( strcmp(current->name, name) == 0 )
                     return current;
 
                 current = current->prev;
