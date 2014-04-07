@@ -74,7 +74,7 @@ int main(int argc, char ** argv){
     char * tmp_number;
     int32_t errnum;
 
-    stored_contacts = fopen("contactos.txt", "r");
+    stored_contacts = fopen("contacts.txt", "r");
     
     if ( stored_contacts != NULL){
 
