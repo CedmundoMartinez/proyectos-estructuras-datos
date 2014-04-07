@@ -46,7 +46,7 @@ ListNode * alloc_list_node (){
 }
 
 DoubleLinkList * alloc_double_link_list (){
-    ListNode * ns = (DoubleLinkList *) malloc (sizeof(DoubleLinkList));
+    DoubleLinkList * ns = (DoubleLinkList *) malloc (sizeof(DoubleLinkList));
     if (ns != NULL){
         memset(ns, 0, sizeof(DoubleLinkList));
     }
@@ -57,11 +57,11 @@ void init_list_node(ListNode * node, ListType content){
     node->content = content;
 }
 
-int8_t is_major_string(const char *a, const char * b){
+int8_t is_major_string(char * a, char * b){
     int32_t alen = strlen(a);
     int32_t blen = strlen(b);
     int32_t i, mlen;
-    const char * major, minor;
+    char * major, minor;
 
     major = alen > blen ? a : b;
     mlen = alen > blen ? alen : blen;
@@ -77,7 +77,7 @@ int8_t is_major_string(const char *a, const char * b){
 
 void insert_contact (ContactBook * list, Contact * new_contact){
     ListNode * current_pos = list->cursor;
-    const char * current_name, new_name;
+    char * current_name, new_name;
 
     if ( current_pos != NULL ) {
         current_name = current_pos->content;
