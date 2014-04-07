@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 extern int32_t errno ;
 
@@ -55,12 +56,12 @@ int8_t read_string_field ( char ** field, FILE * stream ){
             if ( *field == NULL )
                 return 2;
 
-            fseek(start_pos);
+            fseek(stream, start_pos);
 
             if (fgets(*field, tok_size, stream) != *field)
                 return 0;
 
-            fseek(end_pos + 1);
+            fseek(stream, end_pos + 1);
             return 1;
         }
     }
