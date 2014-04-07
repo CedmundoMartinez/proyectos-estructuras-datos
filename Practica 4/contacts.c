@@ -47,6 +47,8 @@ int8_t read_string_field ( char ** field, FILE * stream ){
     while ( !(feof(stream) || ferror(stream)) ){
         c = fgetc(stream);
 
+        printf("%c", c);
+        
         if (c == '\n' || c == ' ' || c == ';' || c == '|'){
             end_pos = ftell(stream);
             tok_size = end_pos - start_pos;
