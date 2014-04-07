@@ -67,43 +67,46 @@ int8_t is_major_string(char * a, char * b){
 
 void insert_contact (ContactBook * list, Contact * new_contact){
     Contact * current = list->cursor;
-    char * cur_name = new_contact->name;
-    char * new_name = current->name;
-    Contact * before_insert = NULL;
 
-    if ( is_major_string(new_name, cur_name) ){
-        Contact * next = current->next;
+    if (current != NULL){
+        char * cur_name = new_contact->name;
+        char * new_name = current->name;
+        Contact * before_insert = NULL;
 
-        while ( current->next != NULL && is_major_string(new_name, current->name) ) {
-            current = current->next;
+        if ( is_major_string(new_name, cur_name) ){
+            Contact * next = current->next;
+
+            while ( current->next != NULL && is_major_string(new_name, current->name) ) {
+                current = current->next;
+            }
+
+            before_insert = next;
+            current->next = new_contact;
+            new_contact->prev = current;
+            new_contact->next = before_insert;
+
+            if (next != NULL){
+                next->prev = new_contact;
+            }
+        } else {
+            Contact * prev = current->prev;
+
+            while ( current->prev != NULL && !is_major_string(new_name, current->name) ) {
+                current = current->prev;
+            }
+
+            before_insert = prev;
+            current->prev = new_contact;
+            new_contact->next = current;
+            new_contact->prev = before_insert;
+
+            if (prev != NULL){
+                prev->next = new_contact;
+            }
+
         }
-
-        before_insert = next;
-        current->next = new_contact;
-        new_contact->prev = current;
-        new_contact->next = before_insert;
-
-        if (next != NULL){
-            next->prev = new_contact;
-        }
-    } else {
-        Contact * prev = current->prev;
-
-        while ( current->prev != NULL && !is_major_string(new_name, current->name) ) {
-            current = current->prev;
-        }
-
-        before_insert = prev;
-        current->prev = new_contact;
-        new_contact->next = current;
-        new_contact->prev = before_insert;
-
-        if (prev != NULL){
-            prev->next = new_contact;
-        }
-
     }
-
+    
     list->cursor = new_contact;
 }
 
