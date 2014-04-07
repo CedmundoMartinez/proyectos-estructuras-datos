@@ -65,10 +65,12 @@ int8_t is_major_string(char * a, char * b){
     return 0;
 }
 
-void insert_contact (ContactBook * list, Contact * new_contact){
-    Contact * current = list->cursor;
+void insert_contact (ContactBook * book, Contact * new_contact){
+    printf ("Contact Book: 0x%p\n", book);
+    
+    Contact * current = book->cursor;
     printf ("Current: 0x%p\n", current);
-
+    
     if (current != NULL){
         char * cur_name = new_contact->name;
         char * new_name = current->name;
@@ -108,7 +110,7 @@ void insert_contact (ContactBook * list, Contact * new_contact){
         }
     }
 
-    list->cursor = new_contact;
+    book->cursor = new_contact;
 }
 
 void print_contact_details (Contact * contacty){
@@ -118,27 +120,28 @@ void print_contact_details (Contact * contacty){
     printf("Edad: %d\n", contacty->age);
 }
 
-void print_contact_preview (Contact * c){
-    printf("%s <%s>\n", c->name, c->email);
+void print_contact_preview (int32_t idx, Contact * c){
+    printf("%d:\t%s <%s>\n", idx, c->name, c->email);
 }
 
 void print_contacts_book (ContactBook * book){
-    Contact * most_left = book->cursor;
+    Contact * first_contact = book->cursor;
     Contact * printing;
 
-    if (most_left == NULL){
+    if (first_contact == NULL){
         printf("Libreta de contactos vacía.\n");
     }
 
-    while ( most_left->prev != NULL ){
-        most_left = most_left->prev;
+    while ( first_contact->prev != NULL ){
+        first_contact = first_contact->prev;
     }
 
-    printf("Libreta de contactos: ");
+    printf("Libreta de contactos: \n");
+    int32_t index;
 
-    printing = most_left;
+    printing = first_contact;
     while( printing != NULL){
-        print_contact_preview (printing);
+        print_contact_preview (index++, printing);
         printing = printing->next;
     }
 
@@ -201,9 +204,11 @@ int main(int argc, char ** argv){
                 tmp_number = NULL;
             }
 
-            printf("========================\n");
-            print_contact_details(new_contact);
-            insert_contact(contacts_book, new_contact);
+            if ( new_contact != NULL ){
+                print_contact_details(new_contact);
+                insert_contact(contacts_book, new_contact);
+                printf("========================\n");
+            }
         }
 
         if (!ferror(stored_contacts)){
