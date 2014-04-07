@@ -67,8 +67,8 @@ int8_t is_major_string(char * a, char * b){
 
 void insert_contact (ContactBook * list, Contact * new_contact){
     Contact * current = list->cursor;
-    printf ("Current: 0x%p", current);
-    
+    printf ("Current: 0x%p\n", current);
+
     if (current != NULL){
         char * cur_name = new_contact->name;
         char * new_name = current->name;
