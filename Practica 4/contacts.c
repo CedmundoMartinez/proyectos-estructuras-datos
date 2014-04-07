@@ -66,6 +66,45 @@ int8_t is_major_string(char * a, char * b){
 }
 
 void insert_contact (ContactBook * list, Contact * new_contact){
+    Contact * current = list->cursor;
+    char * cur_name = new_contact->name;
+    char * new_name = current->name;
+    Contact * before_insert = NULL;
+
+    if ( is_major_string(new_name, cur_name) ){
+        Contact * next = current->next;
+
+        while ( current->next != NULL && is_major_string(new_name, current->name) ) {
+            current = current->next;
+        }
+
+        before_insert = next;
+        curr
+        ent->next = new_contact;
+        new_contact->prev = current;
+        new_contact->next = before_insert;
+
+        if (next != NULL){
+            next->prev = new_contact;
+        }
+    } else {
+        Contact * prev = current->prev;
+
+        while ( current->prev != NULL && !is_major_string(new_name, current->name) ) {
+            current = current->prev;
+        }
+
+        before_insert = prev;
+        current->prev = new_contact;
+        new_contact->next = current;
+        new_contact->prev = before_insert;
+
+        if (prev != NULL){
+            prev->next = new_contact;
+        }
+
+    }
+
     list->cursor = new_contact;
 }
 
@@ -76,7 +115,31 @@ void print_contact_details (Contact * contacty){
     printf("Edad: %d\n", contacty->age);
 }
 
+void print_contact_preview (Contact * c){
+    printf("%s <%s>\n", c->name, c->email);
+}
+
 void print_contacts_book (ContactBook * book){
+    Contact * most_left = book->cursor;
+    Contact * printing;
+
+    if (most_left == NULL){
+        printf("Libreta de contactos vacía.\n");
+    }
+
+    while ( most_left->prev != NULL ){
+        most_left = most_left->prev;
+    }
+
+    printf("Libreta de contactos: ");
+
+    printing = most_left;
+    while( printing != NULL){
+        print_contact_preview (printing);
+        printing = printing->next;
+    }
+
+    printf("\n\n");
 }
 
 int8_t read_string_field ( char ** field, FILE * stream ){
@@ -87,7 +150,7 @@ int8_t read_string_field ( char ** field, FILE * stream ){
     while ( !(feof(stream) || ferror(stream)) ){
         c = fgetc(stream);
 
-        if (c == '\n' || c == ' ' || c == ';' || c == '|'){
+        if (c == '\n' || c == ' ' || c == '\t'){
             end_pos = ftell(stream);
             tok_size = end_pos - start_pos;
 
@@ -140,8 +203,10 @@ int main(int argc, char ** argv){
             insert_contact(contacts_book, new_contact);
         }
 
-        if (!ferror(stored_contacts))
+        if (!ferror(stored_contacts)){
+            print_contacts_book(contacts_book);
             return 0;
+        }
     }
 
     errnum = errno;
