@@ -182,7 +182,7 @@ void print_contact_details (Contact * contacty){
 }
 
 void print_contact_file (FILE *file, Contact * c){
-    fprintf(file, "%s %s %s %d", c->phone_number, c->name, c->email, c->age);
+    fprintf(file, "%s %s %s %d\n", c->phone_number, c->name, c->email, c->age);
 }
 
 void print_contact_preview (int32_t idx, Contact * c){
