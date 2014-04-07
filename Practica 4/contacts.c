@@ -20,6 +20,11 @@ typedef struct _ListNode {
     struct _ListNode * prev;
 } ListNode;
 
+typedef struct _DoubleLinkList {
+    ListNode * cursor;
+} DoubleLinkList;
+typedef DoubleLinkList ContactBook;
+
 char * alloc_string (size_t size){
     char * ns = (char *) malloc (size * sizeof(char));
     if (ns != NULL){
@@ -32,11 +37,70 @@ Contact * alloc_contact (){
     return (Contact *) malloc (sizeof(Contact));
 }
 
+ListNode * alloc_list_node (){
+    ListNode * ns = (ListNode *) malloc (sizeof(ListNode));
+    if (ns != NULL){
+        memset(ns, 0, sizeof(ListNode));
+    }
+    return ns;
+}
+
+DoubleLinkList * alloc_double_link_list (){
+    ListNode * ns = (DoubleLinkList *) malloc (sizeof(DoubleLinkList));
+    if (ns != NULL){
+        memset(ns, 0, sizeof(DoubleLinkList));
+    }
+    return ns;
+}
+
+void init_list_node(ListNode * node, ListType content){
+    node->content = content;
+}
+
+int8_t is_major_string(const char *a, const char * b){
+    int32_t alen = strlen(a);
+    int32_t blen = strlen(b);
+    int32_t i, mlen;
+    const char * major, minor;
+
+    major = alen > blen ? a : b;
+    mlen = alen > blen ? alen : blen;
+    minor = blen > alen ? a : b;
+
+    for( i = 0; i < mlen; i++ ){
+        if (minor[i] > major[i])
+            return 1;
+    }
+
+    return 0;
+}
+
+void insert_contact (ContactBook * list, Contact * new_contact){
+    ListNode * current_pos = list->cursor;
+    const char * current_name, new_name;
+
+    if ( current_pos != NULL ) {
+        current_name = current_pos->content;
+        new_name = new_contact->new_contact;
+
+        if ( is_major_string (current_name, new_name) ){
+        
+        }else{
+        
+        }
+    }
+
+    list->cursor = new_contact;
+}
+
 void print_contact_details (Contact * contacty){
     printf("Nombre: %s\n", contacty->name);
     printf("Telefono: %s\n", contacty->phone_number);
     printf("Email: %s\n", contacty->email);
     printf("Edad: %d\n", contacty->age);
+}
+
+void print_contacts_book (ContactBook * book){
 }
 
 int8_t read_string_field ( char ** field, FILE * stream ){
@@ -70,12 +134,15 @@ int8_t read_string_field ( char ** field, FILE * stream ){
 int main(int argc, char ** argv){
     
     Contact * new_contact;
-    FILE * stored_contacts; 
+    ContactBook * contacts_book;
+
+    FILE * stored_contacts;
     char * tmp_number;
     int32_t errnum;
 
     stored_contacts = fopen("contacts.txt", "r");
-    
+    contacts_book = alloc_double_link_list();
+
     if ( stored_contacts != NULL){
 
         while ( !(feof(stored_contacts) || ferror(stored_contacts)) ){
@@ -92,7 +159,9 @@ int main(int argc, char ** argv){
                 tmp_number = NULL;
             }
 
+            printf("========================\n");
             print_contact_details(new_contact);
+            insert_contact(contacts_book, new_contact);
         }
 
         if (!ferror(stored_contacts))
